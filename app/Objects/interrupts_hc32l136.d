@@ -1,0 +1,17 @@
+.\objects\interrupts_hc32l136.o: Library\driver\src\interrupts_hc32l136.c
+.\objects\interrupts_hc32l136.o: .\Library\driver\inc\ddl.h
+.\objects\interrupts_hc32l136.o: .\Library\common\base_types.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+.\objects\interrupts_hc32l136.o: .\Library\common\hc32l136.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm0plus.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_compiler.h
+.\objects\interrupts_hc32l136.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h
+.\objects\interrupts_hc32l136.o: .\Library\common\system_hc32l136.h
+.\objects\interrupts_hc32l136.o: .\Library\driver\inc\sysctrl.h
+.\objects\interrupts_hc32l136.o: .\Library\driver\inc\ddl.h
+.\objects\interrupts_hc32l136.o: .\Library\driver\inc\interrupts_hc32l136.h
+.\objects\interrupts_hc32l136.o: .\Library\Start\ddl_device.h

@@ -1,0 +1,7 @@
+---- GpioPin10 Matches (3 in 2 files) ----
+en_gpio_pin in gpio.h (D:\workz_zjk\work\510\lk_510\app\Library\driver\inc) :     GpioPin10 = 10u,                ///< GPIO PIN10
+breathing_LightInit in TimeHandler.c (D:\workz_zjk\work\510\lk_510\app\User) : 	  Gpio_Init(GpioPortA, GpioPin10, &stcGpioCfg);
+breathing_LightInit in TimeHandler.c (D:\workz_zjk\work\510\lk_510\app\User) : 	  Gpio_SetAfMode(GpioPortA,GpioPin10,GpioAf2);  
+---- GpioPin10 Search Errors Encountered (1) ----
+The following 1 files could not be processed:
+D:\workz_zjk\work\510\lk_510\app\JLinkLog.txt : File could not be opened.
