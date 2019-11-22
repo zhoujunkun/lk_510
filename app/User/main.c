@@ -260,7 +260,7 @@ static void Ems_Control_F(void)
 
 static void HardWareInit(void)
 {
-   peripheralInit(); //寮€鐢垫簮
+   peripheralInit(); //寮€鐢垫�?
    //HC595_Init();
    //KeyInit();
    Led_1_Init();
@@ -318,7 +318,7 @@ static void AdcSampleTask(void)
 		  NTCSampleDataHandler();
 		}
 		Adc_SQR_Start();
-		invoking_interval_Time_flag=1; //检测完成标志
+		invoking_interval_Time_flag=1; //�?测完成标�?
 	}
 
 }
@@ -443,7 +443,7 @@ void KeyHandler(void)
 		   {
 		  	  MassageHandler.Strength++;
 			  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
-				MassageHandler.Led_Status = LED_Disp_Blink_One; //ZJK:按键，灯闪烁一次
+				MassageHandler.Led_Status = LED_Disp_Blink_One; //ZJK:按键，灯闪烁�?�?
 		   }
 		  else
 		   {
@@ -472,7 +472,7 @@ void KeyHandler(void)
 		    {
 		  	  MassageHandler.Strength--;
 			  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
-				MassageHandler.Led_Status = LED_Disp_Blink_One; //ZJK:按键，灯闪烁一次
+				MassageHandler.Led_Status = LED_Disp_Blink_One; //ZJK:按键，灯闪烁�?�?
 		  	}
 		  else
 		  	{
@@ -695,7 +695,7 @@ static void Motor_vibration_Control(void)
 {
    switch(Motor_Vibr_Control.Motor_Vibr_flag)
    	{
-   	  case Motor_Vibr_StartUp:  ///  开机
+   	  case Motor_Vibr_StartUp:  ///  �?�?
 	  	if(Motor_Vibr_Control.Motor_Vibr_flag!=Motor_Vibr_Control.Motor_Vibr_flagOld)
 	  	  {
 	  		 Motor_Vibr_Control.Motor_Vibr_flagOld=Motor_Vibr_Control.Motor_Vibr_flag;
@@ -830,165 +830,6 @@ static void LED_Status_Control(void)
 {
      static _LED_Status Led_status_Old;
 
-		 #if 0
-     switch(MassageHandler.Led_Status) //
-     {
-     	case LED_Starting_Disp:
-			 if(Led_status_Old!=MassageHandler.Led_Status)
-			 {
-			     Led_status_Old=MassageHandler.Led_Status;
-			 }
-			  if(Led_Blink_control.Led_Blink_Time > 5)  //呼吸灯
-				{
-				  Time3Breathing_Light_Duty(lk_led_BreathArray[led_cnts]);
-					led_cnts++;
-					Led_Blink_control.Led_Blink_Time = 0;
-					if(led_cnts >=60) 
-					{
-	         led_cnts =0;
-	         
-					}			
-			}
-
-			break;
-			
-			case LED_MassageOrHeatModeSwitch_Disp :
-				{
-			   	Time3Breathing_Light_Duty(0);
-          if(Led_Blink_control.Led_Blink_Time<100)
-					{
-					    LED_1_Open;
-					}
-					else if(Led_Blink_control.Led_Blink_Time<200)
-					{
-					    LED_1_Close;
-					}
-					else if(Led_Blink_control.Led_Blink_Time<210)
-					{
-					   MassageHandler.Led_Status = LED_IDLE;
-						 Led_Blink_control.Led_Blink_Time = 0;
-					}          
-          
-				}break;
-      case LED_Chg_Status_Dip:  //充电中
-					Time3Breathing_Light_Duty(0);
-					if(Led_Blink_control.Led_Blink_Time<100)
-					{
-					  LED_1_Open;
-					}
-					else if(Led_Blink_control.Led_Blink_Time<200)
-					{
-					  LED_1_Close;
-					}
-					else
-					{
-					  Led_Blink_control.Led_Blink_Time=0;
-					}
-			
-			break;
-        case LED_Battery_Low_Disp:
-					LED_1_Open;
-				break;
-		case LED_Battery_Chg_Compl_Disp:
-            
-				LED_1_Open;
-				break;
-		case LED_Battery_Chg_NO_Compl_Disp:
-
-           if(Led_Blink_control.Led_Blink_Time<10)
-           	{
-           	  LED_1_Open;
-           	}
-		   else if(Led_Blink_control.Led_Blink_Time<20)
-		   	{
-		   	  LED_1_Close;
-		   	}
-		   else
-		   	{
-		   	  Led_Blink_control.Led_Blink_Time=0;
-		   	}
-			
-			break;
-		case LED_ADJ_STG_Level_Max_Disp:
-			if(Led_Blink_control.Led_Blink_Flag!=Led_Blink_control.Led_Blink_Flag_old)
-			 {
-				Led_Blink_control.Led_Blink_Flag_old=Led_Blink_control.Led_Blink_Flag;
-				Led_Blink_control.Led_Blink_Count=0;
-			 }
-			if(Led_Blink_control.Led_Blink_Time<10)
-			 {
-			    LED_1_Open;
-			 }
-			else if(Led_Blink_control.Led_Blink_Time<20)
-			{
-			   LED_1_Close;
-			}
-			else
-			{
-			   Led_Blink_control.Led_Blink_Time=0;
-			   if(++Led_Blink_control.Led_Blink_Count>=2)
-			   	{
-			   	   Led_Blink_control.Led_Blink_Flag=0xff;
-				   Led_Blink_control.Led_Blink_Flag_old=0xfe;
-			   	}
-			}
-			break;
-		case LED_ADJ_STG_Level_Min_Disp:
-			if(Led_Blink_control.Led_Blink_Flag!=Led_Blink_control.Led_Blink_Flag_old)
-			 {
-				Led_Blink_control.Led_Blink_Flag_old=Led_Blink_control.Led_Blink_Flag;
-				Led_Blink_control.Led_Blink_Count=0;
-			 }
-			if(Led_Blink_control.Led_Blink_Time<10)
-			 {
-			    LED_1_Open;
-			 }
-			else if(Led_Blink_control.Led_Blink_Time<20)
-			{
-			   LED_1_Close;
-			}
-			else
-			{
-			   Led_Blink_control.Led_Blink_Time=0;
-			   if(++Led_Blink_control.Led_Blink_Count>=2)
-			   	{
-			   	   Led_Blink_control.Led_Blink_Flag=0xff;
-				   Led_Blink_control.Led_Blink_Flag_old=0xfe;
-			   	}
-			}
-			break;
-		case LED_App_operate_Success:
-			if(Led_Blink_control.Led_Blink_Flag!=Led_Blink_control.Led_Blink_Flag_old)
-			 {
-				Led_Blink_control.Led_Blink_Flag_old=Led_Blink_control.Led_Blink_Flag;
-				Led_Blink_control.Led_Blink_Count=0;
-			 }
-			if(Led_Blink_control.Led_Blink_Time<10)
-			 {
-			    LED_1_Open;
-			 }
-			else if(Led_Blink_control.Led_Blink_Time<20)
-			{
-			     LED_1_Close;
-			}
-			else
-			{
-			   Led_Blink_control.Led_Blink_Time=0;
-			   if(++Led_Blink_control.Led_Blink_Count>=1)
-			   	{
-			   	   Led_Blink_control.Led_Blink_Flag=0xff;
-				   Led_Blink_control.Led_Blink_Flag_old=0xfe;
-			   	}
-			}
-			break;
-			case LED_IDLE:
-			 {
-           LED_1_Close;
-					 Time3Breathing_Light_Duty(0); 
-			 }break;
-     }
-		 #endif
-
 		 switch(MassageHandler.Led_Status)
 		 	{
 		 	  case LED_Disp_Breathe:
@@ -1016,12 +857,16 @@ static void LED_Status_Control(void)
 					  {
 							 Led_status_Old=MassageHandler.Led_Status;
 					  }
-             if (Led_Blink_control.Led_Blink_Time < 50)
+             if (Led_Blink_control.Led_Blink_Time < 50)   //闪烁一次
              	{
-
-						 }
-						
-            if(MassageHandler.ChargeAndMassageStatus == ChargeNoMassageIng )
+                 Time3Breathing_Light_Duty(0);
+						  }
+             if (Led_Blink_control.Led_Blink_Time < 150)
+             	{
+                 Time3Breathing_Light_Duty(300);
+						  }
+						 
+            if(MassageHandler.ChargeAndMassageStatus == ChargeNoMassageIng ) //按摩中
             {
                MassageHandler.Led_Status = LED_Disp_Always_Light;        
 						}
@@ -1033,9 +878,30 @@ static void LED_Status_Control(void)
 					break;
 					case LED_Disp_Always_Light:
 					{
-
-
-
+	            if(Led_status_Old!=MassageHandler.Led_Status)
+						  {
+								 Led_status_Old=MassageHandler.Led_Status;
+						  }
+             if (Led_Blink_control.Led_Blink_Time < 50)   //闪烁2次
+             	{
+                 Time3Breathing_Light_Duty(0);
+						  }
+             if (Led_Blink_control.Led_Blink_Time < 150)
+             	{
+                 Time3Breathing_Light_Duty(300);
+						  }
+             if (Led_Blink_control.Led_Blink_Time < 250)
+             	{
+                 Time3Breathing_Light_Duty(0);
+						  }
+             if (Led_Blink_control.Led_Blink_Time < 250)
+             	{
+                 Time3Breathing_Light_Duty(300);
+						  }
+						 if(MassageHandler.ChargeAndMassageStatus == ChargeNoMassageIng ) //按摩中
+						 {
+								MassageHandler.Led_Status = LED_Disp_Always_Light;				
+						 }
 					}break;
 				case LED_Disp_Power_Low:
 					if(Led_status_Old!=MassageHandler.Led_Status)
@@ -1050,15 +916,20 @@ static void LED_Status_Control(void)
 						}
 					else
 						{
-						   Led_Blink_control.Led_Blink_Time=0；
+						   Led_Blink_control.Led_Blink_Time=0;
 						   LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
 						}
 					break;
 				case LED_Disp_Charge_Blink:
+					{
+
+				  }
 					
 					break;
 				case LED_Disp_Charge_Comple:
-					
+					{
+
+				 }
 					break;
 		 	}
 }
@@ -1144,7 +1015,7 @@ static void LowPowerHandler(void)
 		        LowPowerControl.LowPowerFlag=LowPowerStopStatus;
 				LowPowerControl.LowPowerDelayTime=0;
 				LED_1_Close;
-				Time3Breathing_Light_Duty(0);  //关闭灯
+				Time3Breathing_Light_Duty(0);  //关闭�?
 				Motor_Close;
 		    Ems_SleepInit();
 		    Update2TimeSleep();
