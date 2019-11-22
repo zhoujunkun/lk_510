@@ -188,7 +188,7 @@ void keyScan(void)
 {
    static u8 OldKeyValue=0;
    volatile u32 temp=0;
-   if(Gpio_GetInputIO(Key_Port1,Key_Pin1)==0)   ///   暂时 只用这个按键
+   if(Gpio_GetInputIO(Key_Port1,Key_Pin1)==0)   ///   鏆傛椂 鍙敤杩欎釜鎸夐敭
    	{
    	  temp=1;
    	}
@@ -512,7 +512,7 @@ static void HallSwitchTrigInterrupteIRQEnable(void)
 	  EnableNvic(PORTD_IRQn,IrqLevel3,TRUE);
 	}
 }
-////  霍尔开关没有接触时是高电平，接触后是低电平
+////  闇嶅皵寮�鍏虫病鏈夋帴瑙︽椂鏄珮鐢靛钩锛屾帴瑙﹀悗鏄綆鐢靛钩
 void HallSwitchStatusScan(void)
 {
    u8 temp;

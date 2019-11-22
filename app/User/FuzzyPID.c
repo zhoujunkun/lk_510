@@ -37,9 +37,9 @@ PARAM param[4] = {
 
 
 
-/**********************************************************Ä£ºý»¯***********************************************************/
-//left,center,right ¹¹³ÉÈý½ÇÐÎtriangle
-//·µ»Øx¶ÔÓ¦µÄÁ¥Êô¶È
+/**********************************************************æ¨¡ç³ŠåŒ–***********************************************************/
+//left,center,right æž„æˆä¸‰è§’å½¢triangle
+//è¿”å›žxå¯¹åº”çš„éš¶å±žåº¦
 float membershipFunc(float left, float center, float right, float x)
 {	
 	if ( x >= left && x <= center)	
@@ -53,7 +53,7 @@ float membershipFunc(float left, float center, float right, float x)
 	return 0;
 }
 
-/*****************************************************½âÄ£ºý×î´óÁ¥Êô¶È£¬×î´óÖµ·¨which ±íÊ¾¶ÔP£¬I£¬DÖÐµÄÄÄÒ»ÖÖ½øÐÐ½âÄ£ºý******************************************************/
+/*****************************************************è§£æ¨¡ç³Šæœ€å¤§éš¶å±žåº¦ï¼Œæœ€å¤§å€¼æ³•which è¡¨ç¤ºå¯¹Pï¼ŒIï¼ŒDä¸­çš„å“ªä¸€ç§è¿›è¡Œè§£æ¨¡ç³Š******************************************************/
 float getPartOfRes(float arr[], int n, int which)
 {	
 	float (*p)[3] = NULL;
@@ -173,17 +173,17 @@ int outPut( float target, float cur, float kp, float ti, float td, int whichChan
 	float kpfinal = 0;	float tifinal = 0;	float tdfinal = 0;		float a = 0;	float b = 0;	float c = 0;	
 	param[channel].offset1 = cur - target;			
 	param[channel].cur1 = cur;		
-	//printf("cu1=%f,cu2=%f\n",param[channel].cur1,param[channel].cur2);		//Ä£ºý»¯	
+	//printf("cu1=%f,cu2=%f\n",param[channel].cur1,param[channel].cur2);		//æ¨¡ç³ŠåŒ–	
 	e = param[channel].offset1/param[channel].ratioFactorE;	
 	ec = ( param[channel].cur1 - param[channel].cur2 )/param[channel].ratioFactorEC;		
-	//printf("e=%f,ec=%f\n",e,ec);		//¹æÔòÆ¥Åä	
+	//printf("e=%f,ec=%f\n",e,ec);		//è§„åˆ™åŒ¹é…	
 	PIDFuzzyRule(e,ec,pRes,P,10);	
 	PIDFuzzyRule(e,ec,iRes,I,10);	
-	PIDFuzzyRule(e,ec,dRes,D,10);	//½âÄ£ºý
+	PIDFuzzyRule(e,ec,dRes,D,10);	//è§£æ¨¡ç³Š
 	kpvar = defuzzy(pRes,10,P);	
 	tivar = defuzzy(iRes,10,I);	
 	tdvar = defuzzy(dRes,10,D);	
-	//printf("kpvar=%f,tivar=%f,tdvar=%f\n",kpvar,tivar,tdvar);		//·Å´ó	
+	//printf("kpvar=%f,tivar=%f,tdvar=%f\n",kpvar,tivar,tdvar);		//æ”¾å¤§	
 	kpvar *= param[channel].ratioFactorP;	tivar /= param[channel].ratioFactorI;	
 	tdvar /= param[channel].ratioFactorD;			
 	//printf("kpvar=%f,tivar=%f,tdvar=%f\n",kpvar,tivar,tdvar);		

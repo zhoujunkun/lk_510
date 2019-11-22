@@ -7,7 +7,7 @@
 
 
 
-
+//³ÈÉ«µÆ
 void Led_1_Init(void)
 {
    stc_gpio_config_t stcGpioCfg;
@@ -20,6 +20,8 @@ void Led_1_Init(void)
    stcGpioCfg.enCtrlMode=GpioAHB;
    Gpio_Init(LED_1_Port,LED_1_Pin,&stcGpioCfg);
    LED_1_Close;
+
+
 }
 
 void Motor_Init(void)

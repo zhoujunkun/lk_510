@@ -10,7 +10,7 @@ void Ems_A_To_Ems_B_PNAlter_P(u32 pulse);  ////   A_u->B_d   B_u->A_d
 void Ems_A_To_Ems_B_PNAlter_N(u32 pulse);  ///  B_u->A_d	A_u->B_d
 void Ems_A_To_Ems_B_Single_P(u32 pulse);  //// A_u->B_d  
 void Ems_A_To_Ems_B_Single_N(u32 pulse); ///  B_u->A_d
-void Ems_A_To_Ems_B_Double(u32 pulse);  ///  ËÄ¹ÜÍ¬¿ª
+void Ems_A_To_Ems_B_Double(u32 pulse);  ///  å››ç®¡åŒå¼€
 
 ////  When extended to large electrode plates
 
@@ -18,13 +18,13 @@ void Ems_C_To_Ems_D_PNAlter_P(u32 pulse); ///  C_u->D_d   C_d->D_u
 void Ems_C_To_Ems_D_PNAlter_N(u32 pulse); ///  C_d->D_u   C_u->D-d
 void Ems_C_To_Ems_D_Single_P(u32 pulse); ///  C_u->D_d
 void Ems_C_To_Ems_D_Single_N(u32 pulse); ///  C_d->D_u
-void Ems_C_To_Ems_D_Double(u32 pulse);  //  ËÄ¹ÜÍ¬¿ª
+void Ems_C_To_Ems_D_Double(u32 pulse);  //  å››ç®¡åŒå¼€
 
 
 
 //The electrode was extended to 4 pieces
 /*
-  A-B  C-DµÚÒ»×é
+  A-B  C-Dç¬¬ä¸€ç»„
   
 */
 
@@ -35,7 +35,7 @@ void Ems_C_To_Ems_D_PNAlter_Four_N(u32 pulse); /// C_d->D_u   C_u->D_d
 
 /*
 
-    B-C  D-A  µÚ¶þ×é
+    B-C  D-A  ç¬¬äºŒç»„
  
 */
 
@@ -45,7 +45,7 @@ void Ems_D_To_Ems_A_PNAlter_Four_P(u32 pulse); /// D_u->A_d   D_d->A_u
 void Ems_D_To_Ems_A_PNAlter_Four_N(u32 pulse); /// D_d->A_u   D_u->A_d
 /*
 
-    A-C    B-D   Ð±¶Ô½Ç  
+    A-C    B-D   æ–œå¯¹è§’  
     
 */
 
@@ -73,7 +73,7 @@ void Ems_AToB_Ems_CToD_FS_N(u32 pulse); /// A_d->B_U    C_d->D_u
 
 /*
 
-   µÚÒ»×é  A ->B  -->B->A     C->D-->D->C   
+   ç¬¬ä¸€ç»„  A ->B  -->B->A     C->D-->D->C   
                      
 
 */
@@ -83,7 +83,7 @@ void Ems_AToB_And_Ems_CToD_PNAlter_N(u32 pulse); /// A_d->B_u   C_d->D_u   <-> A
 
 /*
 
-    µÚ¶þ×é A->C --->C->A   B->D--->D->B
+    ç¬¬äºŒç»„ A->C --->C->A   B->D--->D->B
  
 */
 
@@ -91,7 +91,7 @@ void Ems_AToC_And_Ems_BToD_PNAlter_P(u32 pulse); /// A_u->C_d   B_u->D_d   <-> A
 void Ems_AToC_And_Ems_BToD_PNAlter_N(u32 pulse); /// A_d->C_u   B_d->D_u   <-> A_u->C_d  B_u->D_d
 
 /*
-        µÚÈý×é A->D--->D->A   B->C--->C->B
+        ç¬¬ä¸‰ç»„ A->D--->D->A   B->C--->C->B
 */
 void Ems_AToD_And_Ems_BToC_PNAlter_P(u32 pulse); /// A_u->D_d   B_u->C_d	 <-> A_d->D_u  B_d->C_u
 void Ems_AToD_And_Ems_BToC_PNAlter_N(u32 pulse); /// A_d->D_u   B_d->C_u   <-> A_u->D_d  B_u->C_d

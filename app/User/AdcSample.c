@@ -58,7 +58,7 @@ void AdcSampleInit(void)
     Gpio_Init(GpioPortA, GpioPin5, &stcGpioCfg);
 
    Adc_Enable();
-   M0P_BGR->CR_f.BGR_EN = 0x1u;                 //BGR±ØĞëÊ¹ÄÜ
+   M0P_BGR->CR_f.BGR_EN = 0x1u;                 //BGRå¿…é¡»ä½¿èƒ½
    M0P_BGR->CR_f.TS_EN = 0x0u;
    Delay_us(100); 
 
@@ -84,7 +84,7 @@ void AdcSampleInit(void)
 
   stcDmaCfg.enMode =  DmaBlock;                   
   stcDmaCfg.u16BlockSize = 0x04u;
-  stcDmaCfg.u16TransferCnt = 0x01u;         //BlockÄ£Ê½£¬Ò»´Î´«ÊäÊı¾İ´óĞ¡Îª 1,´«ÊäÈı´Î
+  stcDmaCfg.u16TransferCnt = 0x01u;         //Blockæ¨¡å¼ï¼Œä¸€æ¬¡ä¼ è¾“æ•°æ®å¤§å°ä¸º 1,ä¼ è¾“ä¸‰æ¬¡
   stcDmaCfg.enTransferWidth = Dma32Bit;            
   stcDmaCfg.enSrcAddrMode = AddressIncrease;
   stcDmaCfg.enDstAddrMode = AddressIncrease;
@@ -93,8 +93,8 @@ void AdcSampleInit(void)
   stcDmaCfg.bSrcBcTcReloadCtl = TRUE;
   stcDmaCfg.u32SrcAddress = (uint32_t) &(M0P_ADC->SQRRESULT0);
   stcDmaCfg.u32DstAddress = (uint32_t)&ADC_Result_Array[0];
-  stcDmaCfg.bMsk = TRUE;                                         //DMAC ÔÚ´«ÊäÍê³ÉÊ±²»Çå³ı CONFA:ENS Î»¡£Õâ¸ö¹¦ÄÜÔÊĞíÁ¬Ğø´«Êä¶ø²»ĞèÒª CPU ¸ÉÔ¤¡£
-  stcDmaCfg.enRequestNum = ADCSQRTrig;	                         //ÉèÖÃÎªADC SQR´¥·¢
+  stcDmaCfg.bMsk = TRUE;                                         //DMAC åœ¨ä¼ è¾“å®Œæˆæ—¶ä¸æ¸…é™¤ CONFA:ENS ä½ã€‚è¿™ä¸ªåŠŸèƒ½å…è®¸è¿ç»­ä¼ è¾“è€Œä¸éœ€è¦ CPU å¹²é¢„ã€‚
+  stcDmaCfg.enRequestNum = ADCSQRTrig;	                         //è®¾ç½®ä¸ºADC SQRè§¦å‘
   
   Dma_InitChannel(DmaCh0,&stcDmaCfg);	
 
@@ -107,7 +107,7 @@ void AdcSampleInit(void)
   
   Dma_ConfigIrq(DmaCh0,&stcDmaIrq, &stcDmaIrqCalbaks);
   
-  //Ê¹ÄÜDMA£¬Ê¹ÄÜDMA0£¬Æô¶¯DMA0
+  //ä½¿èƒ½DMAï¼Œä½¿èƒ½DMA0ï¼Œå¯åŠ¨DMA0
   Dma_Enable();
   Dma_EnableChannel(DmaCh0);
   Dma_Start(DmaCh0);

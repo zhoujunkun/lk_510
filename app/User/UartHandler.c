@@ -67,12 +67,12 @@ void UartInit(void)
     DDL_ZERO_STRUCT(stcGpioCfg);
     DDL_ZERO_STRUCT(stcSclk);
     
-    Sysctrl_SetPeripheralGate(SysctrlPeripheralGpio,TRUE);//¨ªa¨¦¨¨?¡ê¨º?¨º¡À?¨®¨º1?¨¹
+    Sysctrl_SetPeripheralGate(SysctrlPeripheralGpio,TRUE);//Ã­aÃ©Ã¨?ï¿¡Ãª?ÃªÂ±?Ã³Ãª1?Ã¼
     Sysctrl_SetPeripheralGate(SysctrlPeripheralLpUart1,TRUE);
     
     Uart_PortInit();
     
-    stcLPUartIrqCb.pfnRxIrqCb   = RxIntCallback;//?D??¡¤t??o¡¥¨ºy¨¨??¨²¦Ì??¡¤
+    stcLPUartIrqCb.pfnRxIrqCb   = RxIntCallback;//?D??Â·t??oË‰ÃªyÃ¨??ÃºÎ¼??Â·
     stcLPUartIrqCb.pfnTxIrqCb   = TxIntCallback;
     stcLPUartIrqCb.pfnRxFEIrqCb = ErrIntCallback;
     stcLPUartIrqCb.pfnPEIrqCb   = PErrIntCallBack;
@@ -83,30 +83,30 @@ void UartInit(void)
 	{
 		EnableNvic(LPUART1_IRQn,IrqLevel3,TRUE);
 	}
-    stcConfig.enStopBit = LPUart1bit;//¨ª¡ê?1??
-    stcConfig.enRunMode = LPUartMode3;//?¡ê¨º?3
-    stcSclk.enSclk_Prs = LPUart4Or8Div;//2¨¦?¨´¡¤??¦Ì
+    stcConfig.enStopBit = LPUart1bit;//Ã­ï¿¡?1??
+    stcConfig.enRunMode = LPUartMode3;//?ï¿¡Ãª?3
+    stcSclk.enSclk_Prs = LPUart4Or8Div;//2Ã©?Ã¹Â·??Î¼
     stcSclk.enSclk_sel =LPUart_Pclk;
     stcConfig.pstcLpuart_clk = &stcSclk;  
     
 
     stcMulti.enMulti_mode = LPUartNormal;
-	LPUart_SetMultiMode(LPUART1,&stcMulti);//?¨¤?¨²?¡ê¨º?¨¦¨¨??
+	LPUart_SetMultiMode(LPUART1,&stcMulti);//?Ã ?Ãº?ï¿¡Ãª?Ã©Ã¨??
   
-    LPUart_SetMMDOrCk(LPUART1,LPUartDataOrAddr);//??D¡ê?¨¦
+    LPUart_SetMMDOrCk(LPUART1,LPUartDataOrAddr);//??Dï¿¡?Ã©
     LPUart_Init(LPUART1, &stcConfig);
     
-    LPUart_SetClkDiv(LPUART1,LPUart4Or8Div);//2¨¦?¨´¡¤??¦Ì
+    LPUart_SetClkDiv(LPUART1,LPUart4Or8Div);//2Ã©?Ã¹Â·??Î¼
     
     stcBaud.u32Sclk = Sysctrl_GetPClkFreq();
     stcBaud.enRunMode = LPUartMode3;
     stcBaud.u32Baud = 115200;
-    u16Scnt = LPUart_CalScnt(LPUART1,&stcBaud);//2¡§¨¬??¨º????
-    LPUart_SetBaud(LPUART1,u16Scnt);//2¡§¨¬??¨º?¦Ì¨¦¨¨??
+    u16Scnt = LPUart_CalScnt(LPUART1,&stcBaud);//2Â¨Ã¬??Ãª????
+    LPUart_SetBaud(LPUART1,u16Scnt);//2Â¨Ã¬??Ãª?Î¼Ã©Ã¨??
     
-    LPUart_EnableIrq(LPUART1,LPUartRxIrq);//¨º1?¨¹?¨®¨º??D??
-    LPUart_ClrStatus(LPUART1,LPUartRC);//???¨®¨º??D?????¨®
-    LPUart_EnableFunc(LPUART1,LPUartRx);//¨º1?¨¹¨ºy?Y¨º?¡¤¡é
+    LPUart_EnableIrq(LPUART1,LPUartRxIrq);//Ãª1?Ã¼?Ã³Ãª??D??
+    LPUart_ClrStatus(LPUART1,LPUartRC);//???Ã³Ãª??D?????Ã³
+    LPUart_EnableFunc(LPUART1,LPUartRx);//Ãª1?Ã¼Ãªy?YÃª?Â·ï¿ 
 	
 }
 

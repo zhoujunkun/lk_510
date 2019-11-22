@@ -26,21 +26,21 @@ typedef struct
 
 _PwmPulseType AcupunctureeMode_to_83Hz=
 {
-   (50),
+   (10),
    ((SystemClkFreq)/(TimeFreqPSC*166)),
    450,
 };
 
 _PwmPulseType AcupunctureeMode_to_166Hz=
 {
-   (50),
+   (10),
    ((SystemClkFreq)/(TimeFreqPSC*244)),
    350,
 };
 
 _PwmPulseType AcupunctureeMode_to_122Hz=
 {
-   (50),
+   (10),
    ((SystemClkFreq)/(TimeFreqPSC*192)),
    400,
 };
@@ -76,7 +76,7 @@ _PwmPulseData AcupunctureMode[]=
 
 _PwmPulseType malaxationMode_to_83Hz_1=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    24,
 };
@@ -90,21 +90,21 @@ _PwmPulseType malaxationMode_toIDLE_8H9z=
 
 _PwmPulseType malaxationMode_to_83Hz_2=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    72,
 };
 
 _PwmPulseType malaxationMode_to_83Hz_3=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    144,
 };
 
 _PwmPulseType malaxationMode_to_83Hz_4=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    192,
 };
@@ -133,21 +133,21 @@ _PwmPulseData MalaxationMode[]=
 
 _PwmPulseType scrapingMode_to_120Hz_80=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*120)),
    80,
 };
 
 _PwmPulseType scrapingMode_to_160Hz_90=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*160)),
    90,
 };
 
 _PwmPulseType scrapingMode_to_200Hz_100=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*200)),
    100,
 };
@@ -163,7 +163,7 @@ _PwmPulseType scrapingMode_toIDLE_8H9z=
 
 _PwmPulseType scrapingMode_to_240Hz_480=
 {
-   ((50)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*240)),
     480,
 };
@@ -196,21 +196,21 @@ _PwmPulseData scrapingMode[]=
 
 _PwmPulseType sKMode_to_5Hz_80=
 {
-   ((80)),
+   ((50)),
    ((SystemClkFreq)/(TimeFreqPSC*5)),
     30,
 };
 
 _PwmPulseType sKMode_to_10Hz_10=
 {
-   ((80)),
+   ((50)),
    ((SystemClkFreq)/(TimeFreqPSC*7.5)),
    30,
 };
 
 _PwmPulseType sKMode_to_7H5z_8=
 {
-   ((80)),
+   ((50)),
    ((SystemClkFreq)/(TimeFreqPSC*10)),
    50,
 };
@@ -262,9 +262,9 @@ _PwmPulseArray MassageModeArray[]=
 
 _PwmPulseType Acupuncturee3DMode_to_83Hz=
 {
-  ((65)),
+  ((25)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
-   250,
+   1000,
 };
 _PwmPulseType Acupuncture3DMode_toIDLE_2Hz_1S=
 {
@@ -278,6 +278,31 @@ _PwmPulseType Acupuncture3DMode_toIDLE_2Hz_1S=
 
 _PwmPulse3Ddata Acupuncture3DMode[]=
 {
+
+   {&Acupuncturee3DMode_to_83Hz,DirA_T_B_And_CD_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirA_T_C_And_BD_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirA_T_D_And_BC_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirB_T_A_And_CD_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirB_T_C_And_AD_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirB_T_D_And_AC_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirC_T_A_And_BD_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirC_T_B_And_AD_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirC_T_D_And_AB_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirD_T_A_And_BC_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirD_T_B_And_AC_No_PN},
+   {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   {&Acupuncturee3DMode_to_83Hz,DirD_T_C_And_AB_No_PN},
+   #if 0
    {&Acupuncturee3DMode_to_83Hz,DirA_T_B_And_CD_No_PN},
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
    {&Acupuncturee3DMode_to_83Hz,DirB_T_C_And_AD_No_PN},
@@ -294,12 +319,17 @@ _PwmPulse3Ddata Acupuncture3DMode[]=
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
    {&Acupuncturee3DMode_to_83Hz,DirD_T_B_And_AC_No_PN},
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   #endif
+
+	 #if 0
    {&Acupuncturee3DMode_to_83Hz,DirABAuto_And_CDAuto_PN},
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
    {&Acupuncturee3DMode_to_83Hz,DirACAutO_And_BDAut0_PN},
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
    {&Acupuncturee3DMode_to_83Hz,DirADAuto_And_BCAuto_PN},
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
+   #endif
+   #if 0
    {&Acupuncturee3DMode_to_83Hz,DirABC_T_D_PN},
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
    {&Acupuncturee3DMode_to_83Hz,DirABD_T_C_PN},
@@ -307,6 +337,7 @@ _PwmPulse3Ddata Acupuncture3DMode[]=
    {&Acupuncturee3DMode_to_83Hz,DirACD_T_B_PN},
    {&Acupuncture3DMode_toIDLE_2Hz_1S,DirAB_And_CD_IDLE},
    {&Acupuncturee3DMode_to_83Hz,DirCBD_T_A_PN},
+   #endif
 };
 
 #endif
@@ -315,7 +346,7 @@ _PwmPulse3Ddata Acupuncture3DMode[]=
 
 _PwmPulseType malaxation3DMode_to_83Hz_1=
 {
-   ((60)),
+   ((25)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    24,
 };
@@ -329,7 +360,7 @@ _PwmPulseType malaxation3DMode_toIDLE_8H9z=
 
 _PwmPulseType malaxation3DMode_to_83Hz_2=
 {
-   ((60)),
+   ((25)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    82,
 };
@@ -366,6 +397,7 @@ _PwmPulse3Ddata Malaxation3DMode[]=
    {&malaxation3DMode_to_83Hz_2,DirD_T_C_And_AB_No_PN},
    {&malaxation3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
 
+   #if 0
    {&malaxation3DMode_to_83Hz_2,DirABAuto_And_CDAuto_PN},
    {&malaxation3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
 
@@ -374,7 +406,9 @@ _PwmPulse3Ddata Malaxation3DMode[]=
 
    {&malaxation3DMode_to_83Hz_2,DirADAuto_And_BCAuto_PN},
    {&malaxation3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
+   #endif
 
+   #if 0
    {&malaxation3DMode_to_83Hz_1,DirABC_T_D_PN},
    {&malaxation3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
    {&malaxation3DMode_to_83Hz_1,DirABD_T_C_PN},
@@ -383,6 +417,7 @@ _PwmPulse3Ddata Malaxation3DMode[]=
    {&malaxation3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
    {&malaxation3DMode_to_83Hz_2,DirCBD_T_A_PN},
    {&malaxation3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
+   #endif
 };
 
 
@@ -393,7 +428,7 @@ _PwmPulse3Ddata Malaxation3DMode[]=
 
 _PwmPulseType scraping3DMode_to_83Hz_1=
 {
-   ((60)),
+   ((25)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    240,
 };
@@ -431,17 +466,21 @@ _PwmPulse3Ddata scraping3DMode[]=
    {&scraping3DMode_to_83Hz_1,DirD_T_C_And_AB_No_PN},
    
    {&scraping3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
+   #if 0
 
    {&scraping3DMode_to_83Hz_1,DirABAuto_And_CDAuto_PN},
    {&scraping3DMode_to_83Hz_1,DirACAutO_And_BDAut0_PN},
    {&scraping3DMode_to_83Hz_1,DirADAuto_And_BCAuto_PN},
    
    {&scraping3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
+   #endif
 
+   #if 0
    {&scraping3DMode_to_83Hz_1,DirABC_T_D_PN},
    {&scraping3DMode_to_83Hz_1,DirABD_T_C_PN},
    {&scraping3DMode_to_83Hz_1,DirACD_T_B_PN},
    {&scraping3DMode_to_83Hz_1,DirCBD_T_A_PN},
+   #endif
    
    {&scraping3DMode_toIDLE_8H9z,DirAB_And_CD_IDLE},
 };
@@ -452,24 +491,24 @@ _PwmPulse3Ddata scraping3DMode[]=
 #ifndef _Knock3DMode1_Define
 #define _Knock3DMode1_Define
 
-///  ¿‡À∆«√
+///  Á±ª‰ººÊï?
 
  _PwmPulseType Knock3DMode1_short8Hz5=
 {
-   ((70)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*8.5)),
    18,
 };
   _PwmPulseType Knock3DMode1_short4Hz9=
  {
-	((70)),
+	((30)),
 	((SystemClkFreq)/(TimeFreqPSC*5.9)),
 	16,
  };
 
  _PwmPulseType Knock3DMode1_short2Hz4=
 {
-   ((70)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*1.8)),
    10,
 };
@@ -512,6 +551,7 @@ _PwmPulse3Ddata Knock3DMode1Mode[]=
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
   	{&Knock3DMode1_short2Hz4,DirD_T_C_And_AB_No_PN},
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
+  	#if 0
 
     {&Knock3DMode1_short4Hz9,DirABAuto_And_CDAuto_PN},
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
@@ -519,7 +559,9 @@ _PwmPulse3Ddata Knock3DMode1Mode[]=
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
   	{&Knock3DMode1_short2Hz4,DirABAuto_And_CDAuto_PN},
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
+  	#endif
 
+    #if 0
     {&Knock3DMode1_short4Hz9,DirABC_T_D_PN},
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
   	{&Knock3DMode1_short2Hz4,DirABD_T_C_PN},
@@ -528,6 +570,7 @@ _PwmPulse3Ddata Knock3DMode1Mode[]=
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
   	{&Knock3DMode1_short2Hz4,DirCBD_T_A_PN},
   	{&Knock3DMode1_toIDLE_8H9z,DirAB_And_CD_IDLE},
+  	#endif
 };
 #endif
 
@@ -549,7 +592,7 @@ _PwmPulse3DArray KnockMode3DMassage[]=
 
 _PwmPulseType MassageIDLEMode_to_116Hz=
 {
-   ((60)),
+   ((30)),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
    24,
 };

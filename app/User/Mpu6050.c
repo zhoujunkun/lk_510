@@ -92,7 +92,8 @@ static u8 MPU6050_Read_Byte(u8 Reg)
    {
      IIC_Stop(&My_IIC_Device[0]);
 	 return 1;
-   }
+   }
+
    IIC_Send_Byte(&My_IIC_Device[0],Reg);
    IIC_Waite_ACK(&My_IIC_Device[0]);
    IIC_Start(&My_IIC_Device[0]);
@@ -175,7 +176,7 @@ short MPU6050_Get_Temperature(void)
    MPU6050_Write_Len(MPU_ADDR,MPU_TEMP_OUTH_REG,2,Buff);
    raw=((u16)Buff[0]<<8|Buff[1]);
    temp=36.53+((double)raw)/340;
-   return temp*100;  ///  À©´óÒ»°Ù±¶
+   return temp*100;  ///  æ‰©å¤§ä¸€ç™¾å€
 }
 
 u8 MPU6050_Get_Gyroscope(u16 *ax,u16 *ay,u16 *az)

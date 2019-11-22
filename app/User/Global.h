@@ -125,7 +125,7 @@ typedef enum
    DirPNAlter,
    DirPNAlterL,
    DirPNAlterR,
-   Diralternate,/// ½»ÌæÇĞ»»
+   Diralternate,/// äº¤æ›¿åˆ‡æ¢
 }_PwmDir;
 
 typedef enum
@@ -170,14 +170,13 @@ typedef struct
 
 typedef enum
 {
-   LED_Starting_Disp,///  LED ¿ª»úÊ±ÏÔÊ¾
-   LED_Chg_Status_Dip,  ///  LED ³äµçÊ½ÏÔÊ¾
-   LED_Battery_Low_Disp,   //// LED µç³ØµçÑ¹µÍÊ±ÏÔÊ¾
-   LED_Battery_Chg_Compl_Disp,   //// LED µç³Ø³äµçÍê³ÉÏÔÊ¾
-   LED_Battery_Chg_NO_Compl_Disp,  ///  LED µç³Ø³äµçÃ»ÓĞÍê³ÉÏÔÊ¾
-   LED_ADJ_STG_Level_Max_Disp, ///   LED  µ÷Õû×î´óÊ±ÏÔÊ¾
-   LED_ADJ_STG_Level_Min_Disp,  ///  LED µ÷Õûµ½×îĞ¡Ê±ÏÔÊ¾
-   LED_App_operate_Success,   ///  LED ²Ù×÷³É¹¦ÏÔÊ¾
+   LED_Disp_Breathe,
+	 LED_Disp_Blink_One,
+	 LED_Disp_Blink_Two,
+	 LED_Disp_Power_Low,
+	 LED_Disp_Charge_Blink,
+	 LED_Disp_Charge_Comple,
+	 LED_Disp_Always_Light,
 }_LED_Status;
 
 typedef enum
@@ -189,34 +188,34 @@ typedef enum
 
 typedef enum
 {
-  ChargeStatusNo,   /// ´ı»úÖĞ
-  ChargeStatusIng,   ///  ³äµçÖĞ
-  ChargeNOEnterMassageIng, /// µÈ´ı½øÈëµ½°´Ä¦ÖĞ
-  ChargeNoMassageIng,   /// °´Ä¦ÖĞ
-  ChargeNoMassageComple, //// °´Ä¦Íê³É
-  ChargeStatusComplete, //// ³äµçÍê³É
-  CharageStatusLowFault,  ///  µÍµçÁ¿±¨´íÖĞ
+  ChargeStatusNo,   /// å¾…æœºä¸­
+  ChargeStatusIng,   /// å……ç”µä¸­
+  ChargeNOEnterMassageIng, /// ç­‰å¾…è¿›å…¥åˆ°æŒ‰æ‘©ä¸­
+  ChargeNoMassageIng,   /// æŒ‰æ‘©ä¸?
+  ChargeNoMassageComple, //// æŒ‰æ‘©å®Œæˆ
+  ChargeStatusComplete, //// å……ç”µå®Œæˆ
+  CharageStatusLowFault,  ///  ä½ç”µé‡æŠ¥é”™ä¸­
 }_ChgAndMassgeStatus;
 
 #define Ems_Line_NoCheckTimeValue 30
 
 typedef struct
 {
-    u8 Ems_LineCheck;    ////  EMS ¼ì²â×´Ì¬Çé¿ö
-	u8 Ems_LineCheckOldMassageIng;   ///  EMS ¼ì²â×´Ì¬±£´æ
-    u8 Heat_time_interval;
-    u8 Strength;  
-	u8 StrengthOld;
-	u16 ConfigRunTime;
-	u16 MassageRunTime;
-	u16 MassageIDLETime;
-	u16 Ems_LineCheckNoTime;
-	volatile _MassageModeType MassageMode;
-	_Heat_temperature_type Heat_TempInfo;
-	_LED_Status Led_Status;
-	_electrodesliceType ElectrSliceTyp;
-	_DeviceStatus DeviceRunStatus;
-	_ChgAndMassgeStatus ChargeAndMassageStatus;
+    u8 Ems_LineCheck;    ////  EMS ä½©æˆ´æ£€æµ‹
+	u8 Ems_LineCheckOldMassageIng;   ///  EMSä¸Šä¸€æ¬¡çŠ¶æ€ä¿å­˜ï¼šä½©æˆ´æˆ–ä¸ä½©æˆ´1 æˆ– 0ï¼š
+    u8 Heat_time_interval;//
+    u8 Strength;  //å¼ºåº¦ç­‰çº§
+	u8 StrengthOld;  //ä¸Šæ¬¡çš„å¼ºåº¦ç­‰çº§,
+	u16 ConfigRunTime;  //è¿è¡Œæ—¶é—´ï¼ŒæŒ‰æ‘©æ—¶é—´ï¼Œæ—¶é—´åˆ°è¾¾åä¸åœ¨æŒ‰æ‘©ï¼Œè¿›å…¥å¾…æœº
+	u16 MassageRunTime; //æŒ‰æ‘©è®¡æ—¶ï¼Œè·Ÿé…ç½®çš„è¿è¡Œæ—¶é—´å¯¹æ¯”
+	u16 MassageIDLETime; //æŒ‰æ‘©ä¸­å–å–ä¸‹æ¥ï¼ŒæŒ‰æ‘©ä¸ä½©æˆ´ï¼ŒæŒ‰æ‘©å®Œæˆåçš„ç©ºé—²æ—¶é—´
+	u16 Ems_LineCheckNoTime;//æ£€æµ‹ä½©æˆ´è®¡æ—¶
+	volatile _MassageModeType MassageMode; //æŒ‰æ‘©æ¨¡å¼
+	_Heat_temperature_type Heat_TempInfo; //åŠ çƒ­ç±»å‹æ¡£ä½é€‰æ‹©
+	_LED_Status Led_Status;  //ledæ˜¾ç¤ºçŠ¶æ€
+	_electrodesliceType ElectrSliceTyp;  //æ‰©å±•ç”µæç±»å‹
+	_DeviceStatus DeviceRunStatus; //æš‚æ—¶æ²¡ç”¨
+	_ChgAndMassgeStatus ChargeAndMassageStatus;//è®¾å¤‡çŠ¶æ€ï¼Œå……ç”µ æŒ‰æ‘©ï¼Œä½ç”µé‡
 }_MassageControl;
 typedef enum
 {

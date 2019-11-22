@@ -213,9 +213,9 @@ void (*Modify2Data[2])(u8*)=
 
 #define PWM_Duty_Range 40
 #define Current_Limit_Value 45
-#define Pulse_Max_Value 100
+#define Pulse_Max_Value 50
 #define Voltage_Ripple_Value 2000
-#define Voltage_Upgrade_Range 3500
+#define Voltage_Upgrade_Range 2200
 _EMS_Control Ems_Control;
 static void MassagePwmCHandler(void);
 static void BoostVoltageControl(u32 VoltageValue);
@@ -224,7 +224,9 @@ static void MassagePwmIdleHandler(void);
 static void Ems_3DParaInit(void);
 static void Ems_2DParaInit(void);
 static void Ems_IDLEParaInit(void);
-#define Temp_Power_Adc 35000
+#define Temp_Power_Adc 45000
+#define Temp_Power_Adc_Zero 5000
+
 _PwmProcessDataHandler PwmProcessDataHandler;
 _StrgUpdateControl StrengUpdateControl;
 
@@ -426,7 +428,7 @@ void EMSControlHandler(void)
 {
    switch(MassageHandler.MassageMode)
    	{
-   	 case MassageIDLE:  //  ÖÇÄÜÄ£Ê½
+   	 case MassageIDLE:  //  æ™ºèƒ½æ¨¡å¼
    	    if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -446,10 +448,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+		      if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
+						}
 		}
 		break;
-	 case MassageAcupuncture:  //  Êæ»ºÄ£Ê½
+	 case MassageAcupuncture:  //  èˆ’ç¼“æ¨¡å¼
         if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -469,10 +478,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+          if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
+						}
 		}
 		break;
-	 case MassageMalaxation:  //  »îÁ¦Ä£Ê½
+	 case MassageMalaxation:  //  æ´»åŠ›æ¨¡å¼
         if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -492,10 +508,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+          if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
+						}
 		}
 		break;
-	 case Massagescraping:  // Èà
+	 case Massagescraping:  // æ‰
         if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -515,10 +538,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+         if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
-		}
+						}
+			}
 		break;
-	 case MassageKnock:  // Ñ¹
+	 case MassageKnock:  // åŽ‹
         if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -538,10 +568,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+          if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
-		}
+						}
+			}
 		break;
-	 case Massage3DAcupuncture:   //  ÇÃ
+	 case Massage3DAcupuncture:   //  æ•²
         if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -561,10 +598,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+          if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
+						}
 		}
 		break;
-	 case Massage3DMalaxation:    // ´ê
+	 case Massage3DMalaxation:    // æ“
         if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -584,10 +628,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+          if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
+						}
 		}
 		break;
-	 case Massage3Dscraping: //  Õñ¶¯
+	 case Massage3Dscraping: //  æŒ¯åŠ¨
         if(StrengUpdateControl.StrgUpdateFlag>0)
    	    {
 	   	    if(StrengUpdateControl.StrgUpdateTime>=StrengthUpdateTimeValue)
@@ -607,7 +658,14 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+         if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
+						}
 		}
 		break;
 	 case Massage3DKnock:
@@ -630,10 +688,17 @@ void EMSControlHandler(void)
    	    }
 		else
 		{
+          if(MassageHandler.Strength==0)
+		      	{
+		      	 BoostVoltageControl(Temp_Power_Adc_Zero+(MassageHandler.Strength*Voltage_Upgrade_Range));
+		      	}
+					else
+						{
           BoostVoltageControl(Temp_Power_Adc+(MassageHandler.Strength*Voltage_Upgrade_Range));
+						}
 		}
 	 	break;
-   	}
+		}
 
    if(TRUE==PwmProcessDataHandler.SwitchOutDisable)
    	{
@@ -683,6 +748,7 @@ static void MassagePwmIdleHandler(void)
    static u8 DirPNAlterMoveCount=0;
     _PwmPulseData *GetpwmPulseArray;
    GetpwmPulseArray=MassageIDLEStatus[0].pwmPulseArray; 
+	 TimestampStop();
    if(--PwmProcessDataHandler.repetCount==0)
 	 {
 	   	   PwmProcessDataHandler.PwmArrIndex++;
@@ -697,6 +763,11 @@ static void MassagePwmIdleHandler(void)
 			PwmProcessDataHandler.PwmConfig_repetMax=PwmProcessDataHandler.repetCount;
 			
 	  }
+	 if(PwmDirOld!=PwmProcessDataHandler.PwmOutDir)
+   	{
+   	   PwmDirOld=PwmProcessDataHandler.PwmOutDir;
+	   TimestampUpdateFreq(PwmProcessDataHandler.TimeArrValue);
+   	}
 
     switch(PwmProcessDataHandler.PwmOutDir)
    	{
@@ -771,11 +842,7 @@ static void MassagePwmIdleHandler(void)
 	   	break;
    	}
 
-   if(PwmDirOld!=PwmProcessDataHandler.PwmOutDir)
-   	{
-   	   PwmDirOld=PwmProcessDataHandler.PwmOutDir;
-	   TimestampUpdateFreq(PwmProcessDataHandler.TimeArrValue);
-   	}
+   TimestampStart();
 }
 
 static void MassagePwmCHandler(void)
@@ -785,6 +852,7 @@ static void MassagePwmCHandler(void)
    static u16 OldValue=0;
    static u8 DirPNAlterMoveCount=0;
    _PwmPulseData *GetpwmPulseArray;
+	 TimestampStop();
    GetpwmPulseArray=MassageModeArray[MassageHandler.MassageMode-MassageAcupuncture].pwmPulseArray;
    if(--PwmProcessDataHandler.repetCount==0)
 	 {
@@ -800,6 +868,11 @@ static void MassagePwmCHandler(void)
 			PwmProcessDataHandler.PwmConfig_repetMax=PwmProcessDataHandler.repetCount;
 			
 	  }
+	 if(PwmDirOld!=PwmProcessDataHandler.PwmOutDir)
+   	{
+   	   PwmDirOld=PwmProcessDataHandler.PwmOutDir;
+	     TimestampUpdateFreq(PwmProcessDataHandler.TimeArrValue);
+   	}
    
    switch(PwmProcessDataHandler.PwmOutDir)
    	{
@@ -871,20 +944,16 @@ static void MassagePwmCHandler(void)
 		Modify2Data[alternateDir](&alternateDir);
 	   	break;
    	}
-
-   if(PwmDirOld!=PwmProcessDataHandler.PwmOutDir)
-   	{
-   	   PwmDirOld=PwmProcessDataHandler.PwmOutDir;
-	   TimestampUpdateFreq(PwmProcessDataHandler.TimeArrValue);
-   	}
-   
+   TimestampStart();
 }
 
 static void Massage3DModelPwmCHandler(void)
 {
-     _Massage3DModelType Pwm3DModeOld;
+   static  _Massage3DModelType Pwm3DModeOld;
 	 static u16 OldValue=0;
 	 _PwmPulse3Ddata *GetpwmPulseArray;
+	 static u8 L_R_Dir=0;
+	 TimestampStop();
     GetpwmPulseArray=KnockMode3DMassage[MassageHandler.MassageMode-Massage3DAcupuncture].pwmPulseArray;
    if(--PwmProcessDataHandler.repetCount==0)
 	 {
@@ -900,6 +969,11 @@ static void Massage3DModelPwmCHandler(void)
 			PwmProcessDataHandler.PwmConfig_repetMax=PwmProcessDataHandler.repetCount;
 			
 	  }
+	 if(Pwm3DModeOld!=PwmProcessDataHandler.Pwm3DDir)
+   	{
+   	   Pwm3DModeOld=PwmProcessDataHandler.Pwm3DDir;
+	    TimestampUpdateFreq(PwmProcessDataHandler.TimeArrValue);
+   	}
 	 if((PwmProcessDataHandler.repetCount+10)<PwmProcessDataHandler.PwmConfig_repetMax)
 	   	{
 	   	  if(OldValue!=(PwmProcessDataHandler.repetCount%10))
@@ -911,12 +985,8 @@ static void Massage3DModelPwmCHandler(void)
 	   	  	  	}
 	   	  	}
 	   	}
-     Dir3DModeMassage_Invoke[PwmProcessDataHandler.Pwm3DDir](PwmProcessDataHandler.PwmPulse,0);
-	if(Pwm3DModeOld!=PwmProcessDataHandler.Pwm3DDir)
-   	{
-   	   Pwm3DModeOld=PwmProcessDataHandler.Pwm3DDir;
-	   TimestampUpdateFreq(PwmProcessDataHandler.TimeArrValue);
-   	}
+     Dir3DModeMassage_Invoke[PwmProcessDataHandler.Pwm3DDir](PwmProcessDataHandler.PwmPulse,&L_R_Dir);
+	TimestampStart();
 }
 
 

@@ -46,8 +46,8 @@ void TimestampInit(void)
 
   Bt_Mode23_Init(TIM0, &stcBtBaseCfg);                   
 
-  u16ArrValue = 0xEA60;  ////  向上计数
-  Bt_M23_ARRSet(TIM0, u16ArrValue, TRUE);               
+  u16ArrValue = 0xEA60;  ////  鍚戜笂璁℃暟
+  Bt_M23_ARRSet(TIM0, u16ArrValue, FALSE);               
 	
   u8ValidPeriod = 0;                                    
   Bt_M23_SetValidPeriod(TIM0,u8ValidPeriod);            
@@ -70,7 +70,7 @@ static void Time0IntCallback(void)
   if(TRUE == Bt_GetIntFlag(TIM0, BtUevIrq))
     {
        Bt_ClearIntFlag(TIM0,BtUevIrq);
-	  // __set_PRIMASK(1);
+	 //  __set_PRIMASK(1);
 	   EMS_PwmControl();
 	 //  __set_PRIMASK(0);
    	}
@@ -267,25 +267,14 @@ void breathing_LightInit(void)
 		Tim3_M23_EnPWM_Output(TRUE, FALSE);
 	    
 	  Tim3_M23_Run();  
-		/*
-		u32 i=0,j=0;
-	while(1)
-		{
-		   if(++i>=100000)
-		   	{
-		   	  i=0;
-		   	  Tim3_M23_CCR_Set(Tim3CCR2A,j);  
-					j+=10;
-					if(j>=375)
-					{
-						  j=0;
-					}
-		   	}
-		}
-	*/
-
 		Time3Breathing_Light_Duty(100);
 
+}
+
+void breathing_SleepInit(void)
+{
+    Tim3_M23_Stop();
+    Sysctrl_SetPeripheralGate(SysctrlPeripheralTim3, FALSE); 
 }
 
 void Time3Breathing_Light_Duty(u16 pulse)
@@ -327,7 +316,7 @@ void Boost_Stop(void)
 void TimestampUpdateFreq(u16 ArrValue)
 {
      Bt_M23_Cnt16Set(TIM0,0);
-     Bt_M23_ARRSet(TIM0, ArrValue,TRUE);  
+     Bt_M23_ARRSet(TIM0, ArrValue,FALSE);  
 }
 
 void TimestampStop(void)

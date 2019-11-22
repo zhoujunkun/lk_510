@@ -226,7 +226,7 @@ void Ems_C_To_Ems_D_Double(u32 pulse)
 
 //The electrode was extended to 4 pieces
 /*
-  A-B  C-DµÚÒ»×é
+  A-B  C-Dç¬¬ä¸€ç»„
   
 */
 
@@ -302,7 +302,7 @@ void Ems_C_To_Ems_D_PNAlter_Four_N(u32 pulse) /// C_d->D_u   C_u->D_d
 
 /*
 
-    B-C  D-A  µÚ¶þ×é
+    B-C  D-A  ç¬¬äºŒç»„
  
 */
 
@@ -379,7 +379,7 @@ void Ems_D_To_Ems_A_PNAlter_Four_N(u32 pulse) /// D_d->A_u   D_u->A_d
 
 /*
 
-    A-C    B-D   Ð±¶Ô½Ç  
+    A-C    B-D   æ–œå¯¹è§’  
     
 */
 
@@ -388,7 +388,7 @@ void Ems_A_To_Ems_C_PNAlter_Four_P(u32 pulse) /// A_u->C_d   A_d->C_u
     EMS_A_U_Out_SetIO;
 	EMS_C_D_Out_SetIO;
 	delay1us(pulse);
-	EMS_C_U_Out_ClrIO;
+	EMS_A_U_Out_ClrIO;
 	EMS_C_D_Out_ClrIO;
 
 	delay1us(DeadZonePulse);
@@ -1323,7 +1323,7 @@ void EmsB_T_C_And_ADAuto_PN(u32 pulse,u8* L_R)
 	   EMS_D_U_Out_SetIO;
 	   delay1us(pulse);
 	   EMS_A_D_Out_ClrIO;
-	   EMS_D_U_Out_SetIO;
+	   EMS_D_U_Out_ClrIO;
      }
 	 else if(1==(*L_R))
 	 {
@@ -1344,7 +1344,7 @@ void EmsB_T_C_And_ADAuto_PN(u32 pulse,u8* L_R)
 	   EMS_D_D_Out_SetIO;
 	   delay1us(pulse);
 	   EMS_A_U_Out_ClrIO;
-	   EMS_D_D_Out_SetIO;
+	   EMS_D_D_Out_ClrIO;
 	 }
 	 else if(2==(*L_R))
 	 {
@@ -1365,7 +1365,7 @@ void EmsB_T_C_And_ADAuto_PN(u32 pulse,u8* L_R)
 	   EMS_D_D_Out_SetIO;
 	   delay1us(pulse);
 	   EMS_A_U_Out_ClrIO;
-	   EMS_D_D_Out_SetIO;
+	   EMS_D_D_Out_ClrIO;
 	 }
 	 else
 	 {
@@ -1386,7 +1386,7 @@ void EmsB_T_C_And_ADAuto_PN(u32 pulse,u8* L_R)
 	   EMS_D_U_Out_SetIO;
 	   delay1us(pulse);
 	   EMS_A_D_Out_ClrIO;
-	   EMS_D_U_Out_SetIO;
+	   EMS_D_U_Out_ClrIO;
 	 }
 	 
 }
@@ -1524,8 +1524,8 @@ void EmsC_T_A_And_BDAuto_PN(u32 pulse,u8* L_R)
 		EMS_B_D_Out_SetIO;
 		EMS_D_U_Out_SetIO;
 		delay1us(pulse);
-		EMS_B_D_Out_SetIO;
-		EMS_D_U_Out_SetIO;
+		EMS_B_D_Out_ClrIO;
+		EMS_D_U_Out_ClrIO;
     }
 	else if(1==(*L_R))
 	{
@@ -1544,8 +1544,8 @@ void EmsC_T_A_And_BDAuto_PN(u32 pulse,u8* L_R)
 		EMS_B_U_Out_SetIO;
 		EMS_D_D_Out_SetIO;
 		delay1us(pulse);
-		EMS_B_U_Out_SetIO;
-		EMS_D_D_Out_SetIO;
+		EMS_B_U_Out_ClrIO;
+		EMS_D_D_Out_ClrIO;
 	}
 	else if(2==(*L_R))
 	{
@@ -1564,8 +1564,8 @@ void EmsC_T_A_And_BDAuto_PN(u32 pulse,u8* L_R)
 		EMS_B_U_Out_SetIO;
 		EMS_D_D_Out_SetIO;
 		delay1us(pulse);
-		EMS_B_U_Out_SetIO;
-		EMS_D_D_Out_SetIO;
+		EMS_B_U_Out_ClrIO;
+		EMS_D_D_Out_ClrIO;
 	}
 	else
 	{
@@ -1584,8 +1584,8 @@ void EmsC_T_A_And_BDAuto_PN(u32 pulse,u8* L_R)
 		EMS_B_D_Out_SetIO;
 		EMS_D_U_Out_SetIO;
 		delay1us(pulse);
-		EMS_B_D_Out_SetIO;
-		EMS_D_U_Out_SetIO;
+		EMS_B_D_Out_ClrIO;
+		EMS_D_U_Out_ClrIO;
 	}
 }
 void EmsC_T_B_And_A_T_D(u32 pulse)
@@ -1836,7 +1836,7 @@ void EmsD_T_A_And_B_T_C(u32 pulse)
 	 EMS_D_U_Out_ClrIO;
 	 EMS_A_D_Out_ClrIO;
 	 EMS_B_U_Out_ClrIO;
-	 EMS_C_D_Out_SetIO;
+	 EMS_C_D_Out_ClrIO;
 }
 void EmsD_T_A_And_BC_AutO_PN(u32 pulse,u8* L_R)
 {
@@ -2470,7 +2470,7 @@ void EmsC_T_B_And_AD_No_PN(u32 pulse,u8* L_R)
 		  EMS_C_D_Out_SetIO;
 		 EMS_B_U_Out_SetIO;
 		 delay1us(pulse);
-		 EMS_B_D_Out_ClrIO;
+		 EMS_C_D_Out_ClrIO;
 		 EMS_B_U_Out_ClrIO;
 
 		 delay1us(DeadZonePulse);
@@ -3541,8 +3541,8 @@ void EmsADAuto_And_BCAuto_PN(u32 pulse,u8*L_R)
 	  delay1us(pulse);
 	  EMS_A_D_Out_ClrIO;
 	  EMS_D_U_Out_ClrIO;
-	  EMS_B_U_Out_ClrIO;
-	  EMS_C_D_Out_ClrIO;
+	  EMS_B_D_Out_ClrIO;
+	  EMS_C_U_Out_ClrIO;
 	}
 }
 

@@ -338,8 +338,9 @@ void delay10us(uint32_t u32Cnt)
 
 void delay1us(uint32_t u32Cnt)
 {
-    volatile uint32_t u32end;
-    
+      volatile uint32_t j=0;
+			j=u32Cnt;
+    volatile uint32_t u32end; 
     SysTick->LOAD = 0xFFFFFF;
     SysTick->VAL  = 0;
     SysTick->CTRL = SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_CLKSOURCE_Msk;
@@ -349,14 +350,30 @@ void delay1us(uint32_t u32Cnt)
 
         SysTick->VAL  = 0;
        // u32end = 0x1000000 - SystemCoreClock/1000000;
-		u32end=0x1000000-4;
+		u32end=0x1000000-3;
         while(SysTick->VAL > u32end)
         {
             ;
         }
-    }
-    
+    }   
     SysTick->CTRL = (SysTick->CTRL & (~SysTick_CTRL_ENABLE_Msk));
+	
+//		int a=1;
+  //while(u32Cnt--);
+//  volatile uint32_t i=0;
+//	for(i=0;i<j;i++)
+//	{
+//    __NOP();
+//    __NOP();
+//    __NOP();
+//    __NOP();
+//    __NOP();
+//    __NOP();
+//    __NOP();
+//    __NOP();
+//    __NOP();
+//	}
+
 }
 
 void delay1us_To_24(uint32_t u32Cnt)

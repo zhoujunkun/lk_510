@@ -18,5 +18,7 @@ void Update2TimeSleep(void);
 void Ems_SleepInit(void);
 void breathing_LightInit(void);
 void Time3Breathing_Light_Duty(u16 pulse);
+void breathing_SleepInit(void);
+
 
 #endif
