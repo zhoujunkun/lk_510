@@ -237,7 +237,7 @@ void breathing_LightInit(void)
 
 	  Tim3_Mode23_Init(&stcBtBaseCfg);                   
 
-	  Tim3_M23_ARRSet(375, TRUE);                
+	  Tim3_M23_ARRSet(375, FALSE);          //FALSE 防止休眠时候led不能关闭      
 		
 	  Tim3_M23_CCR_Set(Tim3CCR2A, 0x90);       
 

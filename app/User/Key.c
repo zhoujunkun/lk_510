@@ -383,7 +383,7 @@ u8 Battery_Chg_Compl_Status_Check(void)
 	  	   if(++TempErrcount>=3)
 	  	   	{
 	  	   	  TempErrcount=0;
-			  return 1;
+			     return 1;
 	  	   	}
 	  	}
 	  else

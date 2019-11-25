@@ -174,8 +174,8 @@ typedef enum
 	 LED_Disp_Blink_One,
 	 LED_Disp_Blink_Two,
 	 LED_Disp_Power_Low,
-	 LED_Disp_Charge_Blink,
-	 LED_Disp_Charge_Comple,
+	 LED_Disp_Charge_Blink,  //充电闪烁
+	 LED_Disp_Charge_Comple,  //充电完成
 	 LED_Disp_Always_Light,
 }_LED_Status;
 
