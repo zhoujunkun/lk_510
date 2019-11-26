@@ -4,6 +4,7 @@
 #include "Global.h"
 
 #define Boost_ValueMax 0x320
+#define Breath_Pwm_Pulse 375
 void TimestampInit(void);
 void TimeBoostPwmInit(void);
 void Boost_Pwm(u16 PwmValue);

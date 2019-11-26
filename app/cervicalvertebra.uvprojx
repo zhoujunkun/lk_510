@@ -10,19 +10,20 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>HC32L130E8PA</Device>
+          <Device>HC32L130F8UA</Device>
           <Vendor>HDSC</Vendor>
           <PackID>HDSC.HC32L130.1.0.0</PackID>
           <PackURL>https://raw.githubusercontent.com/hdscmcu/pack/master/</PackURL>
           <Cpu>IRAM(0x20000000,0x2000) IROM(0x00000000,0x10000) CPUTYPE("Cortex-M0+") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0FlashHC32L130_64K -FS00 -FL010000 -FP0($$Device:HC32L130E8PA$Flash\FlashHC32L130_64K.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0FlashHC32L130_64K -FS00 -FL010000 -FP0($$Device:HC32L130F8UA$Flash\FlashHC32L130_64K.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:HC32L130E8PA$Device\Include\HC32L130E8PA.h</RegisterFile>
+          <RegisterFile>$$Device:HC32L130F8UA$Device\Include\HC32L130F8UA.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -32,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:HC32L130E8PA$SVD\HC32L130E8PA.sfr</SFDFile>
+          <SFDFile>$$Device:HC32L130F8UA$SVD\HC32L130F8UA.sfr</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -51,7 +52,7 @@
           <OutputName>cervicalvertebra</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>1</CreateHexFile>
+          <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -79,9 +80,9 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>1</RunUserProg1>
+            <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>$K\ARM\ARMCC\bin\fromelf.exe --bin --output=@L.bin !L</UserProg1Name>
+            <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -132,8 +133,8 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
-            <DriverSelection>4096</DriverSelection>
+            <Capability>0</Capability>
+            <DriverSelection>-1</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
@@ -186,7 +187,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -297,8 +298,8 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x200000c0</StartAddress>
-                <Size>0x1f40</Size>
+                <StartAddress>0x20000000</StartAddress>
+                <Size>0x2000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -310,7 +311,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -323,6 +324,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>1</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -335,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Library\common;.\Library\driver\inc;.\Library\Start;.\User</IncludePath>
+              <IncludePath>.\User;.\Library\Start;.\Library\common;.\Library\driver\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -380,9 +382,39 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>Flash_Handler.c</FileName>
+              <FileName>AdcSample.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\User\Flash_Handler.c</FilePath>
+              <FilePath>.\User\AdcSample.c</FilePath>
+            </File>
+            <File>
+              <FileName>EMS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\EMS.c</FilePath>
+            </File>
+            <File>
+              <FileName>EMS_Port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\EMS_Port.c</FilePath>
+            </File>
+            <File>
+              <FileName>Key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\Key.c</FilePath>
+            </File>
+            <File>
+              <FileName>LedMotor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\LedMotor.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>NTCTempSample.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\NTCTempSample.c</FilePath>
             </File>
             <File>
               <FileName>TimeHandler.c</FileName>
@@ -395,74 +427,9 @@
               <FilePath>.\User\UartHandler.c</FilePath>
             </File>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>Key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\Key.c</FilePath>
-            </File>
-            <File>
-              <FileName>AdcSample.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\AdcSample.c</FilePath>
-            </File>
-            <File>
-              <FileName>EMS.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\EMS.c</FilePath>
-            </File>
-            <File>
               <FileName>util.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\User\util.c</FilePath>
-            </File>
-            <File>
-              <FileName>IIC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\IIC.c</FilePath>
-            </File>
-            <File>
-              <FileName>EMS_Port.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\EMS_Port.c</FilePath>
-            </File>
-            <File>
-              <FileName>HC595.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\HC595.c</FilePath>
-            </File>
-            <File>
-              <FileName>NTCTempSample.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\NTCTempSample.c</FilePath>
-            </File>
-            <File>
-              <FileName>LedMotor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\LedMotor.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Common</GroupName>
-          <Files>
-            <File>
-              <FileName>system_hc32l136.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\common\system_hc32l136.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Start</GroupName>
-          <Files>
-            <File>
-              <FileName>startup_hc32l136.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Library\Start\startup_hc32l136.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -475,6 +442,11 @@
               <FilePath>.\Library\driver\src\adc.c</FilePath>
             </File>
             <File>
+              <FileName>adt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Library\driver\src\adt.c</FilePath>
+            </File>
+            <File>
               <FileName>bt.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Library\driver\src\bt.c</FilePath>
@@ -483,6 +455,11 @@
               <FileName>ddl.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Library\driver\src\ddl.c</FilePath>
+            </File>
+            <File>
+              <FileName>dmac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Library\driver\src\dmac.c</FilePath>
             </File>
             <File>
               <FileName>flash.c</FileName>
@@ -500,36 +477,6 @@
               <FilePath>.\Library\driver\src\interrupts_hc32l136.c</FilePath>
             </File>
             <File>
-              <FileName>timer3.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\driver\src\timer3.c</FilePath>
-            </File>
-            <File>
-              <FileName>trim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\driver\src\trim.c</FilePath>
-            </File>
-            <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\driver\src\uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>sysctrl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\driver\src\sysctrl.c</FilePath>
-            </File>
-            <File>
-              <FileName>dmac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\driver\src\dmac.c</FilePath>
-            </File>
-            <File>
-              <FileName>adt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Library\driver\src\adt.c</FilePath>
-            </File>
-            <File>
               <FileName>lpm.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Library\driver\src\lpm.c</FilePath>
@@ -539,10 +486,37 @@
               <FileType>1</FileType>
               <FilePath>.\Library\driver\src\lpuart.c</FilePath>
             </File>
+            <File>
+              <FileName>sysctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Library\driver\src\sysctrl.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Library\driver\src\timer3.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Mpu6050</GroupName>
+          <GroupName>Start</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_hc32l136.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Library\Start\startup_hc32l136.s</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Common</GroupName>
+          <Files>
+            <File>
+              <FileName>system_hc32l136.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Library\common\system_hc32l136.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
@@ -554,8 +528,8 @@
   <RTE>
     <apis/>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.1.1" condition="ARMv6_7_8-M Device">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.3.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.2.0" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.5.1"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
         </targetInfos>

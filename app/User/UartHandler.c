@@ -5,22 +5,15 @@
 #include "Global.h"
 #include "UartHandler.h"
 #include "Lpuart.h"
-u8 u8TxData[50] = {0x00,0x55};
-u8 u8RxData;
-u8 u8TxCnt=0,u8RxCnt=0;
+
 
 void TxIntCallback(void)
 {
-    u8TxCnt++;
-    if(u8TxCnt<=1)
-    {
-        M0P_UART1->SBUF = u8TxData[1];
-    }
+    
 }
 void RxIntCallback(void)
 {
-    u8RxData=Uart_ReceiveData(UARTCH1);
-    u8RxCnt++;
+    
 }
 void ErrIntCallback(void)
 {

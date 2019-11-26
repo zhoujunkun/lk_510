@@ -339,8 +339,9 @@ void delay10us(uint32_t u32Cnt)
 void delay1us(uint32_t u32Cnt)
 {
       volatile uint32_t j=0;
+	  volatile uint32_t u32end; 
 			j=u32Cnt;
-    volatile uint32_t u32end; 
+  
     SysTick->LOAD = 0xFFFFFF;
     SysTick->VAL  = 0;
     SysTick->CTRL = SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_CLKSOURCE_Msk;

@@ -2,16 +2,6 @@
 #define __MAIN__HH__
 #include "TypedefDef.h"
 
-typedef struct
-{
-  u8 Led_Switch_Flag;
-  u8 Led_Blink_Flag;
-  u8 Led_Blink_Flag_old;
-  u8 Led_Blink_Count;
-  u16 Led_Blink_Time;
-}_LED_Blink_Control;
-
-
 #define PeripheralBatterySwPort GpioPortC 
 #define PeripheralBatterySwPin GpioPin15
 

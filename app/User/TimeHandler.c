@@ -237,7 +237,7 @@ void breathing_LightInit(void)
 
 	  Tim3_Mode23_Init(&stcBtBaseCfg);                   
 
-	  Tim3_M23_ARRSet(375, FALSE);          //FALSE 防止休眠时候led不能关闭      
+	  Tim3_M23_ARRSet(Breath_Pwm_Pulse, FALSE);          //FALSE 防止休眠时候led不能关闭      
 		
 	  Tim3_M23_CCR_Set(Tim3CCR2A, 0x90);       
 
@@ -264,21 +264,37 @@ void breathing_LightInit(void)
 	    
 	  Tim3_M23_Cnt16Set(u16CntValue);   
 
-		Tim3_M23_EnPWM_Output(TRUE, FALSE);
+	  Tim3_M23_EnPWM_Output(TRUE, FALSE);
 	    
 	  Tim3_M23_Run();  
-		Time3Breathing_Light_Duty(100);
+	  Time3Breathing_Light_Duty(100);
 
 }
 
+
+void breath_gpio_rest(void)
+{
+	stc_gpio_config_t stcGpioCfg;
+	Sysctrl_SetPeripheralGate(SysctrlPeripheralGpio, TRUE);  
+	stcGpioCfg.enDir = GpioDirOut;
+	stcGpioCfg.enDrv = GpioDrvH;
+	stcGpioCfg.enPuPd = GpioPd;
+	stcGpioCfg.enOD = GpioOdDisable;
+	stcGpioCfg.enCtrlMode = GpioAHB;
+	Gpio_Init(GpioPortA, GpioPin10,&stcGpioCfg);
+  Gpio_ClrIO(GpioPortA,GpioPin10);
+
+}
 void breathing_SleepInit(void)
 {
+	 breath_gpio_rest();
     Tim3_M23_Stop();
     Sysctrl_SetPeripheralGate(SysctrlPeripheralTim3, FALSE); 
 }
 
 void Time3Breathing_Light_Duty(u16 pulse)
 {
+
     Tim3_M23_CCR_Set(Tim3CCR2A, pulse); 
 }
 

@@ -167,10 +167,9 @@ typedef struct
   u8 Motor_Vibr_Count;
   u16 Motor_Vibr_Time;
 }_Motor_vibr_Control_type;
-
 typedef enum
 {
-   LED_Disp_Breathe,
+     LED_Disp_Breathe,
 	 LED_Disp_Blink_One,
 	 LED_Disp_Blink_Two,
 	 LED_Disp_Power_Low,
@@ -178,6 +177,20 @@ typedef enum
 	 LED_Disp_Charge_Comple,  //充电完成
 	 LED_Disp_Always_Light,
 }_LED_Status;
+
+
+
+typedef struct
+{
+  volatile u8 Led_Switch_Flag;
+  u8 Led_Blink_Flag;
+  u8 Led_Blink_Flag_old;
+  u8 Led_Blink_Count;
+  volatile u32 Led_Blink_Time;  
+  volatile _LED_Status Led_Status;
+}_LED_Blink_Control;
+
+
 
 typedef enum
 {
@@ -212,7 +225,6 @@ typedef struct
 	u16 Ems_LineCheckNoTime;//检测佩戴计时
 	volatile _MassageModeType MassageMode; //按摩模式
 	_Heat_temperature_type Heat_TempInfo; //加热类型档位选择
-	_LED_Status Led_Status;  //led显示状态
 	_electrodesliceType ElectrSliceTyp;  //扩展电极类型
 	_DeviceStatus DeviceRunStatus; //暂时没用
 	_ChgAndMassgeStatus ChargeAndMassageStatus;//设备状态，充电 按摩，低电量
@@ -291,7 +303,7 @@ typedef struct
    u8 RxBufferCycleIndex;
    u8 RxBuffer[30];
    _RxBufferCycle RxBufferCycle[RxBufferCycleLength];
-   u8 TxBuffer[256];
+   u8 TxBuffer[30];
 }RxHandlerBuffer;
 extern RxHandlerBuffer RxBufferHandler;
 
@@ -324,6 +336,8 @@ extern volatile u8 softtime_Count_1ms;
 extern _Motor_vibr_Control_type Motor_Vibr_Control;
 extern _LowPowerControl LowPowerControl;
 extern _key_delay_init key_delay_init;
+extern volatile _LED_Blink_Control Led_Blink_Controlold;
+
 void SoftTimerCount(void);
 
 #endif

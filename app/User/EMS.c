@@ -224,8 +224,8 @@ static void MassagePwmIdleHandler(void);
 static void Ems_3DParaInit(void);
 static void Ems_2DParaInit(void);
 static void Ems_IDLEParaInit(void);
-#define Temp_Power_Adc 45000
-#define Temp_Power_Adc_Zero 5000
+#define Temp_Power_Adc 25000
+#define Temp_Power_Adc_Zero 10000
 
 _PwmProcessDataHandler PwmProcessDataHandler;
 _StrgUpdateControl StrengUpdateControl;

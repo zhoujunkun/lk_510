@@ -228,18 +228,23 @@ void keyScan(void)
    	   	   keyDataHandler.KeyBufferOld=keyDataHandler.KeyBuffer;
 		   keyDataHandler.keyTime=0;
 		   keyDataHandler.KeyData=keyDataHandler.KeyBuffer;
-		   if(keyDataHandler.KeyBuffer>0)
-		   	{
-		   	  OldKeyValue=keyDataHandler.KeyBuffer;
-		   	}
+		  
+		  if(1==key_delay_init.key_init_Flag)
+		  	{
+			   if(keyDataHandler.KeyBuffer>0)
+			   	{
+			   	  OldKeyValue=keyDataHandler.KeyBuffer;
+			   	}
+		  	}
    	   	}
    	}
 
-   if(0==keyDataHandler.KeyBuffer)
-   	{
-   	  keyDataHandler.KeyOld=OldKeyValue;
-	  OldKeyValue=KEY_OFF;
-   	}
+	   if(0==keyDataHandler.KeyBuffer)
+	   	{
+	   	  keyDataHandler.KeyOld=OldKeyValue;
+		  OldKeyValue=KEY_OFF;
+	   	}
+
     
 }
 
@@ -454,7 +459,7 @@ void Battery_Chg_Status_Pin_Scan(void)
 static void Battery_Chg_Status_Enable_IRQ(void)
 {
    Battery_Chg_Status_Pin_Init();
-   Gpio_EnableIrq(Battery_Chg_Status_Port,Battery_Chg_Status_Pin,GpioIrqHigh);
+   Gpio_EnableIrq(Battery_Chg_Status_Port,Battery_Chg_Status_Pin,GpioIrqRising);
    if(Battery_Chg_Status_Port==GpioPortA)
    	{
    	  EnableNvic(PORTA_IRQn,IrqLevel3,TRUE);
@@ -475,7 +480,7 @@ static void Battery_Chg_Status_Enable_IRQ(void)
 
 static void Battery_Chg_Status_Disable_IRQ(void)
 {
-   Gpio_DisableIrq(Battery_Chg_Status_Port,Battery_Chg_Status_Pin,GpioIrqHigh); 
+   Gpio_DisableIrq(Battery_Chg_Status_Port,Battery_Chg_Status_Pin,GpioIrqRising); 
 }
 
 void HallSwitchTrigTouchKeyInit(void)

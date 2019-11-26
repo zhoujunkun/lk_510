@@ -14,7 +14,7 @@
 /*
  * Define the Device Header File: 
  */
-#define CMSIS_device_header "HC32L130E8PA.h"
+#define CMSIS_device_header "HC32L130F8UA.h"
 
 
 #endif /* RTE_COMPONENTS_H */

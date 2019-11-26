@@ -1,4 +1,0 @@
----- GpioPin3 Matches (3 in 3 files) ----
-EMS_Port.c (D:\workz_zjk\work\510\lk_510\app\User) line 6 : #define EMS_A_U_Pin    GpioPin3
-en_gpio_pin in gpio.h (D:\workz_zjk\work\510\lk_510\app\Library\driver\inc) :     GpioPin3  = 3u,                 ///< GPIO PIN3 
-Key.c (D:\workz_zjk\work\510\lk_510\app\User) line 27 : #define Battery_Chg_Status_Pin GpioPin3
