@@ -1,12 +1,17 @@
 #ifndef __KEY__HH__
 #define __KEY__HH__
 #include "TypedefDef.h"
-
+#include "gpio.h"
 #define KEY_OFF 0
 #define KEY_START 1
 #define KEY_POWR_INC 4
 #define KEY_POWR_DEC 2
 #define KEY_MODE_INC 8
+
+
+#define EMS_Check_Port GpioPortA 
+#define EMS_Check_Pin GpioPin6
+
 
 typedef struct
 {
@@ -22,9 +27,12 @@ typedef struct
 
 typedef struct
 {
+  volatile u8 Ems_Check_Flag;
   volatile u8 Ems_CkIntFlag;
+  u8 Ems_CkCount;
   u8 Ems_CkTemp;
   u8 Ems_CkBuffer;
+  u8 Ems_CkData;
   volatile u16 Ems_CkTime;
 }_Ems_Status_Check;
 

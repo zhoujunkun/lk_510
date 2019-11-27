@@ -162,7 +162,7 @@ typedef enum
 
 typedef struct
 {
-  _Motor_Vibr_Typedef Motor_Vibr_flag;
+  volatile _Motor_Vibr_Typedef Motor_Vibr_flag;
   u8 Motor_Vibr_flagOld;  
   u8 Motor_Vibr_Count;
   u16 Motor_Vibr_Time;
@@ -333,7 +333,7 @@ extern _FilterSampleBuff VoltageSampleBuff;
 extern _MassageControl MassageHandler;
 extern volatile u8 invoking_interval_Time_flag;
 extern volatile u8 softtime_Count_1ms;
-extern _Motor_vibr_Control_type Motor_Vibr_Control;
+extern volatile _Motor_vibr_Control_type Motor_Vibr_Control;
 extern _LowPowerControl LowPowerControl;
 extern _key_delay_init key_delay_init;
 extern volatile _LED_Blink_Control Led_Blink_Controlold;

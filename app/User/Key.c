@@ -17,7 +17,7 @@ _keyHandler HallSwitchScan;
 #define Key_Pin3   GpioPin14
 
 
-#define Ems_Status_shortTime 60
+#define Ems_Status_shortTime 40
 
 #define HallSwitchPort GpioPortD
 #define HallSwitchPin GpioPin0
@@ -26,8 +26,7 @@ _keyHandler HallSwitchScan;
 #define Battery_Chg_Status_Port GpioPortD
 #define Battery_Chg_Status_Pin GpioPin3
 
-#define EMS_Check_Port GpioPortA 
-#define EMS_Check_Pin GpioPin6
+
 
 
 
@@ -311,48 +310,56 @@ void EMS_Port_Pin_Status(void)
 {
   volatile u8 Temp=0;
   //if(Gpio_GetInputIO(EMS_Check_Port,EMS_Check_Pin)==0)
-   if(Ems_Status_Check.Ems_CkIntFlag>0)
-  	{
-  	  Ems_Status_Check.Ems_CkIntFlag=0;
-  	  Temp=1;
-  	}
-  else
-  	{
-  	  Temp=0;
-  	}
-  if(Temp!=Ems_Status_Check.Ems_CkTemp)
-  	{
-  	   if(Ems_Status_Check.Ems_CkBuffer!=Temp)
-  	   	{
-  	   	   Ems_Status_Check.Ems_CkBuffer=Temp;
-		   Ems_Status_Check.Ems_CkTime=0;
-  	   	}
-  	  if(Ems_Status_Check.Ems_CkBuffer==0)
-  	  	{
-  	  	    if(Ems_Status_Check.Ems_CkTime>Ems_Status_shortTime)
-  	  	      {
-  	  	        Ems_Status_Check.Ems_CkTemp=Temp;
-  	  	      }
-  	  	}
+   if(TRUE==Ems_Status_Check.Ems_Check_Flag)
+   	{
+   	   Ems_Status_Check.Ems_Check_Flag=FALSE;
+	   if(Ems_Status_Check.Ems_CkIntFlag>0)
+	  	{
+	  	  Ems_Status_Check.Ems_CkIntFlag=0;
+	  	  Temp=1;
+	  	}
 	  else
 	  	{
-	  
-		  	  Ems_Status_Check.Ems_CkTime=0;
-		  	  Ems_Status_Check.Ems_CkTemp=Temp;
-		  	
+	  	  Temp=0;
+	  	}
+	  if(Temp!=Ems_Status_Check.Ems_CkTemp)
+	  	{
+	  	   Ems_Status_Check.Ems_CkTemp=Temp;
+		   Ems_Status_Check.Ems_CkCount=0;
+	  	}
+	  else if(++Ems_Status_Check.Ems_CkCount>=3)
+	  	{
+	  	  if(Ems_Status_Check.Ems_CkBuffer!=Ems_Status_Check.Ems_CkTemp)
+	  	   	{
+	  	   	   Ems_Status_Check.Ems_CkBuffer=Ems_Status_Check.Ems_CkTemp;
+			   Ems_Status_Check.Ems_CkTime=0;
+	  	   	}
+	  	 
 	  	}
 
-  	}
-  
-
-    if(1==Ems_Status_Check.Ems_CkTemp)
-    {
-    	MassageHandler.Ems_LineCheck=TRUE;
-    }
-	else
-	{
-	   MassageHandler.Ems_LineCheck=FALSE;
-	}
+	   if(Ems_Status_Check.Ems_CkBuffer==0)
+	  	  	{
+	  	  	    if(Ems_Status_Check.Ems_CkTime>Ems_Status_shortTime)
+	  	  	      {
+	  	  	        Ems_Status_Check.Ems_CkData=Ems_Status_Check.Ems_CkTemp;
+	  	  	      }
+	  	  	}
+		  else
+		  	{
+		  
+			  	   Ems_Status_Check.Ems_CkData=Ems_Status_Check.Ems_CkTemp;
+			  	
+		  	}
+	  
+	    if(1==Ems_Status_Check.Ems_CkData)
+	    {
+	    	MassageHandler.Ems_LineCheck=TRUE;
+	    }
+	  else
+		{
+		   MassageHandler.Ems_LineCheck=FALSE;
+		}
+   	}
 }
 
 #define Batter_Chg_Port GpioPortD
@@ -545,7 +552,6 @@ void HallSwitchStatusScan(void)
 
 			 if(HallSwitchScan.KeyData==FALSE)
 		      {
-				// LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
 				  if(ChargeStatusIng!=MassageHandler.ChargeAndMassageStatus&&
 				  	ChargeStatusComplete!=MassageHandler.ChargeAndMassageStatus)
 				  {

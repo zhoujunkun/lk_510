@@ -50,7 +50,7 @@ _PwmPulseType AcupunctureMode_toIDLE_2Hz_1S=
 {
     0,
    ((SystemClkFreq)/(TimeFreqPSC*2)),
-   2,
+   1,
 };
 
 

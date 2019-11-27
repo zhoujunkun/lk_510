@@ -6,7 +6,7 @@
 #include "Global.h"
 #include "base_types.h"
 #include "Util.h"
-
+#include "key.h"
 static void _DirAB_And_CD_IDLE(u32 pulse,u8* L_R);
 static void _DirAB_And_CD_DisCharge(u32 pulse,u8* L_R);
 static void _DirA_T_B_And_CD_No(u32 pulse,u8* L_R);
@@ -213,7 +213,7 @@ void (*Modify2Data[2])(u8*)=
 
 #define PWM_Duty_Range 40
 #define Current_Limit_Value 45
-#define Pulse_Max_Value 50
+#define Pulse_Max_Value 85
 #define Voltage_Ripple_Value 2000
 #define Voltage_Upgrade_Range 2200
 _EMS_Control Ems_Control;
@@ -224,7 +224,7 @@ static void MassagePwmIdleHandler(void);
 static void Ems_3DParaInit(void);
 static void Ems_2DParaInit(void);
 static void Ems_IDLEParaInit(void);
-#define Temp_Power_Adc 25000
+#define Temp_Power_Adc 23000
 #define Temp_Power_Adc_Zero 10000
 
 _PwmProcessDataHandler PwmProcessDataHandler;
@@ -737,6 +737,9 @@ void EMS_PwmControl(void)
 		 	Massage3DModelPwmCHandler(); 
 		 	break;
      	}
+	 Ems_Status_Check.Ems_Check_Flag=TRUE;
+	 if(Gpio_GetInputIO(EMS_Check_Port,EMS_Check_Pin)==0)
+        Ems_Status_Check.Ems_CkIntFlag=1;
 }
 
 static void MassagePwmIdleHandler(void)

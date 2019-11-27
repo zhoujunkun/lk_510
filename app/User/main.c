@@ -49,7 +49,7 @@ RxHandlerBuffer RxBufferHandler;
 _FilterSampleBuff VoltageSampleBuff;
 _FilterSampleBuff HeatTemperatureBuff;
 _FilterSampleBuff ExtensiondetectBuff;
-_Motor_vibr_Control_type Motor_Vibr_Control;
+volatile _Motor_vibr_Control_type Motor_Vibr_Control;
 _LED_Blink_Control Led_Blink_control;
 _LowPowerControl LowPowerControl;
 _key_delay_init key_delay_init;
@@ -123,7 +123,8 @@ static void Ems_Control_F(void)
 		             if(flag!=flagold)
 		             {
 		                flagold=flag;
-					           Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;  
+					        Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown; 
+					        LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
 		             }
 				 }
 				 else
@@ -155,6 +156,7 @@ static void Ems_Control_F(void)
 		               {
 		                flagold=flag;
 					    Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;  
+					    LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
 		               }
 					   }
 					 else
@@ -179,8 +181,8 @@ static void Ems_Control_F(void)
 				   if(MassageHandler.Ems_LineCheck==FALSE)
 				   	{
 				   	    MassageHandler.StrengthOld=MassageHandler.Strength;
-						    MassageHandler.Strength=0;
-						
+					  MassageHandler.Strength=0;
+
 				   	}
 				   else
 				   	{
@@ -200,9 +202,8 @@ static void Ems_Control_F(void)
 			             if(flag!=flagold)
 			             {
 			                flagold=flag;
-					 	   //LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
-						    Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;
-						   MassageHandler.ChargeAndMassageStatus=ChargeStatusNo;
+					 	   LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
+						    Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;	
 			             }
 					 }
 					 else
@@ -268,7 +269,7 @@ static void Ems_Control_F(void)
 	  case CharageStatusLowFault:
 	  	 Ems_Output_Close();
 		 Led_Blink_Controlold.Led_Status=LED_Disp_Power_Low;
-	    // LowPowerControl.LowPowerFlag=LowPowerNoCancelShutdown;
+	     LowPowerControl.LowPowerFlag=LowPowerNoCancelShutdown;
 	  	 break;
 	}
 
@@ -473,8 +474,8 @@ void KeyHandler(void)
 	  	{
 		  if(MassageHandler.Strength<MassageStrengthMax)
 		   {
-		  	  MassageHandler.Strength++;
-			  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
+		  	   MassageHandler.Strength++;
+			   Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
 			    Led_Blink_Controlold.Led_Switch_Flag=TRUE;
 				Led_Blink_Controlold.Led_Status= LED_Disp_Blink_One; //ZJK:按键，灯闪烁�?�?
 		   }
@@ -564,7 +565,6 @@ void KeyHandler(void)
 
 
 			  // Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
-		  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
 		  Led_Blink_Controlold.Led_Switch_Flag=TRUE;
 		  Led_Blink_Controlold.Led_Status= LED_Disp_Blink_Two;
 		  Led_Blink_Controlold.Led_Blink_Time=0;
@@ -590,7 +590,7 @@ void KeyHandler(void)
 	  	(ChargeStatusIng!=MassageHandler.ChargeAndMassageStatus))
 	  	{
 	  	  Temp=MassageHandler.Heat_TempInfo;
-		  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
+		 // Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
 		  Led_Blink_Controlold.Led_Switch_Flag=TRUE;
 		  Led_Blink_Controlold.Led_Status= LED_Disp_Blink_One;
 		  Led_Blink_Controlold.Led_Blink_Time=0;
@@ -975,6 +975,7 @@ static void LowPowerHandler(void)
 				LED_1_Close;
 				Time3Breathing_Light_Duty(0);  //关闭�?
 				Motor_Close;
+				Heater_Close;
 		        Ems_SleepInit();
 		        Update2TimeSleep();
 				AdcSampleSleepInit();
@@ -1001,7 +1002,8 @@ static void LowPowerHandler(void)
 		   	   	{ 
 							LowPowerControl.LowPowerFlag=LowPowerStopStatus;
 							LED_1_Close;
-							Motor_Close;
+							Motor_Close;							
+							Heater_Close;
 							Time3Breathing_Light_Duty(0);  //关闭�?
 							Ems_SleepInit();
 							Update2TimeSleep();

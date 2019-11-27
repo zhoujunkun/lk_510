@@ -2,7 +2,7 @@
 #define __EMS__HH__
 #include "Global.h"
 #include "TypedefDef.h"
-
+#include "key.h"
 
 #define MassageIndexMaxGuaSha 32
 #define MassageIndexMaxBeat 32
