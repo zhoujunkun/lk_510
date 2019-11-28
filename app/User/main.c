@@ -54,6 +54,8 @@ _LED_Blink_Control Led_Blink_control;
 _LowPowerControl LowPowerControl;
 _key_delay_init key_delay_init;
 volatile _LED_Blink_Control Led_Blink_Controlold;
+_Heater_Control Heater_Status_Data_Control;
+
 
 
 uint8_t led_cnts=0;
@@ -109,7 +111,6 @@ static void key_Delay_Init(void)
 
 static void Ems_Control_F(void)
 {
-   static volatile _ChgAndMassgeStatus ChargeStatus;
    static volatile u8 flag=0,flagold=0;
 	// MassageHandler.ChargeAndMassageStatus = ChargeNoMassageIng;
 	switch(MassageHandler.ChargeAndMassageStatus)
@@ -117,13 +118,14 @@ static void Ems_Control_F(void)
 	  case ChargeStatusNo:
 	  	{
 			  	 Ems_CallTask();
+				 Heat_Temperature_Close();
 				 MassageHandler.MassageRunTime=0;
 				 if(MassageHandler.MassageIDLETime>=Ems_Line_NoCheckTimeValue)
 				 {
 		             if(flag!=flagold)
 		             {
 		                flagold=flag;
-					        Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown; 
+					      //  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown; 
 					        LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
 		             }
 				 }
@@ -140,7 +142,7 @@ static void Ems_Control_F(void)
 	 	 break;
 	  case ChargeNOEnterMassageIng:
 	  	   Ems_CallTask();
-		  	 Heat_temperature_Control();
+		   Heat_temperature_Control();
 	  	   MassageHandler.Ems_LineCheckOldMassageIng=MassageHandler.Ems_LineCheck;
 			   if(MassageHandler.Ems_LineCheck==TRUE)
 			   {
@@ -155,7 +157,7 @@ static void Ems_Control_F(void)
 		              if(flag!=flagold)
 		               {
 		                flagold=flag;
-					    Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;  
+					   // Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;  
 					    LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
 		               }
 					   }
@@ -203,7 +205,7 @@ static void Ems_Control_F(void)
 			             {
 			                flagold=flag;
 					 	   LowPowerControl.LowPowerFlag=LowPowerImmedShutdown;
-						    Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;	
+						   // Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_ShutDown;	
 			             }
 					 }
 					 else
@@ -225,19 +227,20 @@ static void Ems_Control_F(void)
 	  	 break;
 		    case ChargeStatusIng:
 		      	{
-		      	
-		         if(Battery_Chg_Compl_Status_Check()>0)
+				   Ems_Output_Close();
+		      	   Heat_Temperature_Close();
+		           if(Battery_Chg_Compl_Status_Check()>0)
 		           {
 		             
-		             if(TRUE==Chg_Status_CheckHandler.status_CheckData)
-		             	{
-									   MassageHandler.ChargeAndMassageStatus=ChargeStatusComplete;
-								  } 
+		                if(TRUE==Chg_Status_CheckHandler.status_CheckData)
+		             	  {
+							   MassageHandler.ChargeAndMassageStatus=ChargeStatusComplete;
+						  } 
 					       else
-					       	{
-									  MassageHandler.ChargeAndMassageStatus=ChargeStatusNo;
-								   }			         
-		           }
+					       {
+							   MassageHandler.ChargeAndMassageStatus=ChargeStatusNo;
+						   }			         
+		               }
 				        if(FALSE==Led_Blink_Controlold.Led_Switch_Flag)
 				        {
 						  Led_Blink_Controlold.Led_Status=LED_Disp_Charge_Blink;
@@ -249,16 +252,20 @@ static void Ems_Control_F(void)
 	  	{
 			 Led_Blink_Controlold.Led_Status= LED_Disp_Always_Light;
 	  	}
-	  	 Ems_CallTask();
+	  	// Ems_CallTask();
+	  	 Ems_Output_Close();
+		 Heat_Temperature_Close();
          MassageHandler.MassageRunTime=0;
          MassageHandler.ChargeAndMassageStatus=ChargeStatusNo;
 	     MassageHandler.MassageIDLETime=0;
+		 Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_Two_0s5;
 	  	 break;
 	  case ChargeStatusComplete:
 	  	 if(FALSE==Led_Blink_Controlold.Led_Switch_Flag)
 	  	  {
 			Led_Blink_Controlold.Led_Status= LED_Disp_Always_Light;
 	  	  }
+		 Heat_Temperature_Close();
 	  	 Ems_Output_Close();
 	  	 MassageHandler.MassageIDLETime=0;
 		 if(Chg_Status_CheckHandler.status_CheckData==FALSE)
@@ -268,29 +275,11 @@ static void Ems_Control_F(void)
 	  	 break;
 	  case CharageStatusLowFault:
 	  	 Ems_Output_Close();
+		 Heat_Temperature_Close();
 		 Led_Blink_Controlold.Led_Status=LED_Disp_Power_Low;
-	     LowPowerControl.LowPowerFlag=LowPowerNoCancelShutdown;
 	  	 break;
 	}
-
-	if(ChargeStatus!=MassageHandler.ChargeAndMassageStatus)
-   	{
-   	   
-	   ChargeStatus=MassageHandler.ChargeAndMassageStatus;
-	   if((ChargeStatusIng==ChargeStatus)||
-	   	(ChargeStatusComplete==ChargeStatus)||
-	   	(CharageStatusLowFault==ChargeStatus))
-	   	{
-		   LowPowerControl.LowPowerDelayTime=0;
-		  // Ems_Stop();
-		   Heat_Temperature_Close();
-	   	}
-	   else if(ChargeStatus==ChargeStatusNo)
-   	   	{
-   	   	  // Ems_Start();
-		   Heat_Temperature_Close();
-   	   	}
-   	}
+   	
 }
 
 static void HardWareInit(void)
@@ -387,6 +376,7 @@ static void SoftTimeTask(void)
 	  Motor_Vibr_Control.Motor_Vibr_Time++;
 	  keyDataHandler.keyTime++;
 	  Led_Blink_Controlold.Led_Blink_Time++;
+	  Heater_Status_Data_Control.periodic_Time++;
 	}
 	
 	if(time100ms>=10)/// 100ms
@@ -474,7 +464,10 @@ void KeyHandler(void)
 	  	{
 		  if(MassageHandler.Strength<MassageStrengthMax)
 		   {
-		  	   MassageHandler.Strength++;
+		       if(TRUE==MassageHandler.Ems_LineCheck)
+		       	{
+		  	      MassageHandler.Strength++;
+		       	}
 			   Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
 			    Led_Blink_Controlold.Led_Switch_Flag=TRUE;
 				Led_Blink_Controlold.Led_Status= LED_Disp_Blink_One; //ZJK:按键，灯闪烁�?�?
@@ -504,7 +497,7 @@ void KeyHandler(void)
 	  	(ChargeStatusComplete!=MassageHandler.ChargeAndMassageStatus)&&
 	  	(ChargeStatusIng!=MassageHandler.ChargeAndMassageStatus))
 	  	{
-		  if(MassageHandler.Strength>0)
+		  if(MassageHandler.Strength>0) //强度是否是正
 		    {
 		  	  MassageHandler.Strength--;
 			  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
@@ -526,7 +519,7 @@ void KeyHandler(void)
    	}
 
     
-   if((KEY_START==keyDataHandler.KeyOld)&&(keyDataHandler.keyTime>=200))   ///  1s
+   if((KEY_START==keyDataHandler.KeyOld)&&(keyDataHandler.keyTime>=200))   ///  2s
    	{
       keyDataHandler.KeyOld=KEY_OFF;
 	  MassageHandler.MassageIDLETime=0;
@@ -564,7 +557,7 @@ void KeyHandler(void)
 		  }
 
 
-			  // Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
+		   Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
 		  Led_Blink_Controlold.Led_Switch_Flag=TRUE;
 		  Led_Blink_Controlold.Led_Status= LED_Disp_Blink_Two;
 		  Led_Blink_Controlold.Led_Blink_Time=0;
@@ -590,9 +583,9 @@ void KeyHandler(void)
 	  	(ChargeStatusIng!=MassageHandler.ChargeAndMassageStatus))
 	  	{
 	  	  Temp=MassageHandler.Heat_TempInfo;
-		 // Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One;
-		  Led_Blink_Controlold.Led_Switch_Flag=TRUE;
-		  Led_Blink_Controlold.Led_Status= LED_Disp_Blink_One;
+		  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_One; //震动一次
+		  Led_Blink_Controlold.Led_Switch_Flag=TRUE;     //按下按键
+		  Led_Blink_Controlold.Led_Status= LED_Disp_Blink_One;  //灯闪烁
 		  Led_Blink_Controlold.Led_Blink_Time=0;
 		  if(++Temp>Heat_temperature_Zero)
 		  	{
@@ -677,6 +670,8 @@ static void DeviceDataInit(void)
 {
   DDL_ZERO_STRUCT(Led_Blink_Controlold);
   DDL_ZERO_STRUCT(MassageHandler);
+  DDL_ZERO_STRUCT(Heater_Status_Data_Control);
+  Heater_Status_Data_Control.Heater_Status=_Heater_Ing;
   Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_StartUp;
   MassageHandler.MassageMode=MassageAcupuncture;
   MassageHandler.ConfigRunTime=15*60;
@@ -689,6 +684,20 @@ static void DeviceDataInit(void)
   Led_Blink_Controlold.Led_Switch_Flag=FALSE;
   
 }
+static void delay_us_ms_1(u16 cnt)
+{
+   u16 i=0,j=0;
+   for(i=0;i<cnt;i++)
+   	{
+   	   for(j=0;j<10;j++)
+   	   	{
+   	   	  ;
+
+   	   	}
+	   	;
+   	}
+}
+
 
 static void ClkInit24M(void)
 {
@@ -871,6 +880,7 @@ static void Motor_vibration_Control(void)
 		Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_StopStatus;
 	  	break;
 	  case Motor_Vibr_StopStatus:
+	  	Motor_Close;
 	  	break;
    	}
 }
@@ -884,20 +894,24 @@ static void Battery_Status_Check(void)
 
    if(FALSE==Chg_Status_CheckHandler.status_CheckData)
    	{
-   	  if(ChargeNoMassageIng==MassageHandler.ChargeAndMassageStatus)
+   	  if((ChargeNoMassageIng==MassageHandler.ChargeAndMassageStatus
+	  	)||(ChargeNOEnterMassageIng==MassageHandler.ChargeAndMassageStatus))
    	  	{
-   	  	  if(NTCDataSmaple.BatteryVoltageSample.FilterAvgValue<Battery_Voltage_Limit_MassageIng)
-		   	{
-		   	   if(++ErrorCount>=20)
-		   	   	{
-		   	   	   ErrorCount=0;
-		   	       MassageHandler.ChargeAndMassageStatus=CharageStatusLowFault;
-		   	   	}
-		   	}
-		  else
-		  	{
-		  	   ErrorCount=0;
-		  	}
+   	  	  if(TRUE==Heater_Status_Data_Control.Heater_Flag)
+   	  	   {
+	   	  	  if(NTCDataSmaple.BatteryVoltageSample.FilterAvgValue<Battery_Voltage_Limit_MassageIng)
+			   	{
+			   	   if(++ErrorCount>=40)
+			   	   	{
+			   	   	   ErrorCount=0;
+			   	       MassageHandler.ChargeAndMassageStatus=CharageStatusLowFault;
+			   	   	}
+			   	}
+			  else
+			  	{
+			  	   ErrorCount=0;
+			  	}
+   	  	  }
    	  	}
 	  else
 	  	{
@@ -932,24 +946,51 @@ const u8 Heat_temperatureTable[]={
 
 static void Heat_temperature_Control(void)
 {
-		
-  if(MassageHandler.Heat_TempInfo!=Heat_temperature_Zero)
-    {
-	   if(NTCDataSmaple.tempvalue>=Heat_temperatureTable[MassageHandler.Heat_TempInfo])
-		 {
-		      Heater_Close;
-		 }
-	  else
-		 {
-			  Heater_Open;
-	    }
-	}
-   else
-	{
-		     Heater_Close;
-    }
-		   
 
+  switch(Heater_Status_Data_Control.Heater_Status)
+  	{
+	 case _Heater_Ing:
+	 	if(MassageHandler.Heat_TempInfo!=Heat_temperature_Zero)
+	    {
+		   if(NTCDataSmaple.tempvalue>=Heat_temperatureTable[MassageHandler.Heat_TempInfo])
+			 {
+			      Heater_Close;
+			 }
+		  else
+			 {
+				  Heater_Open;
+		    }
+		}
+	   else
+		{
+			     Heater_Close;
+	    }
+	    if(Heater_Status_Data_Control.periodic_Time>100)
+		{
+		   Heater_Status_Data_Control.periodic_Time=0;
+		   Heater_Status_Data_Control.Heater_Status=_Heater_StDly;
+		   Heater_Close;
+		}
+		Heater_Status_Data_Control.Heater_Flag=FALSE;
+	 	break;
+	 case _Heater_StDly:
+	 	Heater_Close;
+		Heater_Status_Data_Control.Heater_Flag=FALSE;
+		if(Heater_Status_Data_Control.periodic_Time>1)
+		{
+		   Heater_Status_Data_Control.Heater_Status=_Heater_CheckBt;
+		   Heater_Status_Data_Control.Heater_Flag=TRUE;
+		}
+	 	break;
+	 case _Heater_CheckBt:
+	 	Heater_Status_Data_Control.Heater_Flag=TRUE;
+	 	if(Heater_Status_Data_Control.periodic_Time>3)
+		{
+		   Heater_Status_Data_Control.Heater_Status=_Heater_Ing;
+		}
+	 	break;
+  	}
+  
 }
 
 static void Heat_Temperature_Close(void)
@@ -976,17 +1017,18 @@ static void LowPowerHandler(void)
 				Time3Breathing_Light_Duty(0);  //关闭�?
 				Motor_Close;
 				Heater_Close;
+				Battery_Close;
 		        Ems_SleepInit();
 		        Update2TimeSleep();
 				AdcSampleSleepInit();
 				breathing_SleepInit();
-				//ClkInit4M();
+				ClkInit4M();
+				delay_us_ms_1(50);
 				ExtTrigInterrupteRouseEnable();
 				EMS_Port_Pin_Disable_IRQ();
 				SysEnterSleepMode();
 				
                 
-	          
 				ClkInit24M();
 				DeviceDataInit();
 				ExtTrigInterrupteRouseDisable();
@@ -1004,12 +1046,14 @@ static void LowPowerHandler(void)
 							LED_1_Close;
 							Motor_Close;							
 							Heater_Close;
+							Battery_Close;
 							Time3Breathing_Light_Duty(0);  //关闭�?
 							Ems_SleepInit();
 							Update2TimeSleep();
 							AdcSampleSleepInit();
 							breathing_SleepInit();
 							ClkInit4M();
+							delay_us_ms_1(50);
 							ExtTrigInterrupteRouseEnable();
 							SysEnterSleepMode();
 							

@@ -326,6 +326,7 @@ void Boost_Start(void)
 void Boost_Stop(void)
 {
    Boost_Pwm(0);
+   Adt_SetCount(AdtTIM4,0);
    Adt_StopCount(AdtTIM4);
 }
 

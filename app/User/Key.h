@@ -18,7 +18,7 @@ typedef struct
    u8 KeyTemp;
    u8 KeyBuffer;
    u8 KeyBufferOld;
-   u8 KeyCount;
+   u16 KeyCount;
    u8 KeyData;
    u8 KeyOld;   
    u16 keyTime;

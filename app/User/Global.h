@@ -221,7 +221,7 @@ typedef struct
 	u8 StrengthOld;  //上次的强度等级,
 	u16 ConfigRunTime;  //运行时间，按摩时间，时间到达后不在按摩，进入待机
 	u16 MassageRunTime; //按摩计时，跟配置的运行时间对比
-	u16 MassageIDLETime; //按摩中取取下来，按摩不佩戴，按摩完成后的空闲时间
+	volatile u16 MassageIDLETime; //按摩中取取下来，按摩不佩戴，按摩完成后的空闲时间
 	u16 Ems_LineCheckNoTime;//检测佩戴计时
 	volatile _MassageModeType MassageMode; //按摩模式
 	_Heat_temperature_type Heat_TempInfo; //加热类型档位选择
@@ -285,6 +285,20 @@ typedef struct
   u16 key_delay_time;
 }_key_delay_init;
 
+typedef enum
+{
+  _Heater_Ing,
+  _Heater_StDly,
+  _Heater_CheckBt,
+}_Heater_Status;
+
+typedef struct
+{
+  u8 Heater_Flag;
+  volatile u16 periodic_Time;
+  _Heater_Status Heater_Status;
+}_Heater_Control;
+
 
 
 typedef struct
@@ -337,6 +351,7 @@ extern volatile _Motor_vibr_Control_type Motor_Vibr_Control;
 extern _LowPowerControl LowPowerControl;
 extern _key_delay_init key_delay_init;
 extern volatile _LED_Blink_Control Led_Blink_Controlold;
+extern _Heater_Control Heater_Status_Data_Control;
 
 void SoftTimerCount(void);
 

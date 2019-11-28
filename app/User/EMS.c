@@ -235,19 +235,19 @@ static void BoostVoltageControl(u32 VoltageValue)
 {
       u32 Temp=0;
 	  Temp=(VoltageValue/10);
-      if((Temp+100)>VoltageSampleBuff.FilterAvgValue)
+      if((Temp+1000)>VoltageSampleBuff.FilterAvgValue)
 	    { 
-			  if((Ems_Control.Pwm_Duty+60)<(Boost_ValueMax-PWM_Duty_Range))
+			  if((Ems_Control.Pwm_Duty+20)<(Boost_ValueMax-PWM_Duty_Range))
 			    {
-					   Ems_Control.Pwm_Duty+=60;
+					   Ems_Control.Pwm_Duty+=20;
 			    }
-			  else if((Ems_Control.Pwm_Duty+40)<(Boost_ValueMax-PWM_Duty_Range))
+			  else if((Ems_Control.Pwm_Duty+10)<(Boost_ValueMax-PWM_Duty_Range))
 			    {
-					  Ems_Control.Pwm_Duty+=40; 
+					  Ems_Control.Pwm_Duty+=10; 
 				}
-			  else if((Ems_Control.Pwm_Duty+20)<(Boost_ValueMax-PWM_Duty_Range))
+			  else if((Ems_Control.Pwm_Duty)<(Boost_ValueMax-PWM_Duty_Range))
 			  	{
-			  	     Ems_Control.Pwm_Duty+=20; 
+			  	     Ems_Control.Pwm_Duty+=1; 
 			  	}
 			  else
 			  	{
@@ -256,27 +256,15 @@ static void BoostVoltageControl(u32 VoltageValue)
 		 }
 	 else if((Temp+10)>VoltageSampleBuff.FilterAvgValue)
 		 {
-			   if(Ems_Control.Pwm_Duty+40<(Boost_ValueMax-PWM_Duty_Range))
-			  	 {
-			  	    Ems_Control.Pwm_Duty+=40;
-			  	 }	
-			   else if(Ems_Control.Pwm_Duty+20<(Boost_ValueMax-PWM_Duty_Range))
-			   	{
-			   	    Ems_Control.Pwm_Duty+=20;
-			   	}
-			   else 
-			   	    Ems_Control.Pwm_Duty++;
+			  
+			   	   Ems_Control.Pwm_Duty++;
 		 }	
 	 else if((Temp+1)>VoltageSampleBuff.FilterAvgValue)
 		 {
-			  	 if(Ems_Control.Pwm_Duty+5<(Boost_ValueMax-PWM_Duty_Range))
-			  	 {
-			  	       Ems_Control.Pwm_Duty+=5;
-			  	 }
-				 else
-				 {
-				       Ems_Control.Pwm_Duty++;
-				 }
+			  	
+				 
+				    Ems_Control.Pwm_Duty++;
+				 
 		 }
 	 
 	if((Temp)<(VoltageSampleBuff.FilterAvgValue+100))
@@ -340,6 +328,7 @@ void Ems_Output_Close(void)
    Ems_Control.Pwm_Duty=0;
    Boost_Pwm(Ems_Control.Pwm_Duty);
 }
+
 
 
 void Ems_ParaInit(void)

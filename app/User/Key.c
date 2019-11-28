@@ -17,7 +17,7 @@ _keyHandler HallSwitchScan;
 #define Key_Pin3   GpioPin14
 
 
-#define Ems_Status_shortTime 40
+#define Ems_Status_shortTime 80
 
 #define HallSwitchPort GpioPortD
 #define HallSwitchPin GpioPin0
@@ -220,7 +220,7 @@ void keyScan(void)
 	   keyDataHandler.KeyCount=0;
 	   keyDataHandler.KeyTemp=temp;
    	}
-   else if(++keyDataHandler.KeyCount>=3)
+   else if(++keyDataHandler.KeyCount>=20)
    	{
    	   if(keyDataHandler.KeyBuffer!=keyDataHandler.KeyBufferOld)
    	   	{
@@ -327,7 +327,7 @@ void EMS_Port_Pin_Status(void)
 	  	   Ems_Status_Check.Ems_CkTemp=Temp;
 		   Ems_Status_Check.Ems_CkCount=0;
 	  	}
-	  else if(++Ems_Status_Check.Ems_CkCount>=3)
+	  else if(++Ems_Status_Check.Ems_CkCount>=6)
 	  	{
 	  	  if(Ems_Status_Check.Ems_CkBuffer!=Ems_Status_Check.Ems_CkTemp)
 	  	   	{
@@ -341,13 +341,13 @@ void EMS_Port_Pin_Status(void)
 	  	  	{
 	  	  	    if(Ems_Status_Check.Ems_CkTime>Ems_Status_shortTime)
 	  	  	      {
-	  	  	        Ems_Status_Check.Ems_CkData=Ems_Status_Check.Ems_CkTemp;
+	  	  	        Ems_Status_Check.Ems_CkData=Ems_Status_Check.Ems_CkBuffer;
 	  	  	      }
 	  	  	}
 		  else
 		  	{
 		  
-			  	   Ems_Status_Check.Ems_CkData=Ems_Status_Check.Ems_CkTemp;
+			  	   Ems_Status_Check.Ems_CkData=Ems_Status_Check.Ems_CkBuffer;
 			  	
 		  	}
 	  
@@ -542,7 +542,7 @@ void HallSwitchStatusScan(void)
 	   HallSwitchScan.KeyCount=0;
 	   HallSwitchScan.KeyBuffer=temp;
    	}
-   else if(++HallSwitchScan.KeyCount>=10)
+   else if(++HallSwitchScan.KeyCount>=400)
    	{
    	    if(HallSwitchScan.KeyBuffer!=HallSwitchScan.KeyBufferOld)
    	     {
@@ -568,10 +568,6 @@ void HallSwitchStatusScan(void)
 				   {
 				 	 Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_EnterStopStatus;
 				   }
-				 if(Motor_Vibr_ShutDown==Motor_Vibr_Control.Motor_Vibr_flag)
-				 	{
-				 	  Motor_Vibr_Control.Motor_Vibr_flag=Motor_Vibr_EnterStopStatus;
-				 	}
 			  }
    	     }
    	}
