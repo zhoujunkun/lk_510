@@ -267,7 +267,7 @@ void breathing_LightInit(void)
 	  Tim3_M23_EnPWM_Output(TRUE, FALSE);
 	    
 	  Tim3_M23_Run();  
-	  Time3Breathing_Light_Duty(100);
+	  Time3Breathing_Light_Duty(0);
 
 }
 

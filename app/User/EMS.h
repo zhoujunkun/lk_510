@@ -14,7 +14,7 @@ typedef struct
 
 typedef struct
 {
-  u8 StrgUpdateFlag;
+  u8 StrgUpdateFlag;  
   u8 StrengthOld;
   u16 StrgUpdateTime;
 }_StrgUpdateControl;

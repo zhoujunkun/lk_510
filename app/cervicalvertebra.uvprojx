@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\User;.\Library\Start;.\Library\common;.\Library\driver\inc</IncludePath>
+              <IncludePath>.\User;.\Library\Start;.\Library\common;.\Library\driver\inc;.\User\lk</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -513,6 +513,46 @@
               <FileName>system_hc32l136.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Library\common\system_hc32l136.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>lk/app</GroupName>
+          <Files>
+            <File>
+              <FileName>lk_board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\lk\lk_board.c</FilePath>
+            </File>
+            <File>
+              <FileName>lk_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\lk\lk_led.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>lk/massage</GroupName>
+          <Files>
+            <File>
+              <FileName>lk_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\lk\massage\lk_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>lk_massage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\lk\massage\lk_massage.c</FilePath>
+            </File>
+            <File>
+              <FileName>lk_pwm_handle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\lk\massage\lk_pwm_handle.c</FilePath>
+            </File>
+            <File>
+              <FileName>lk_pwm_ops.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\lk\massage\lk_pwm_ops.c</FilePath>
             </File>
           </Files>
         </Group>

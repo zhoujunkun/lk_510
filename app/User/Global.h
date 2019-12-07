@@ -1,13 +1,13 @@
 #ifndef __GLOBAL_HH__
 #define __GLOBAL_HH__
 #include "TypedefDef.h"
-
+#include "stdbool.h"
 #define Heart_rate_sensor_enable 1
 
 
 
-#define MassageStrengthMax 15
-#define MassageModeMax 2
+#define MassageStrengthMax 15    //最大档位
+#define MassageModeMax 2           
 
 typedef enum
 {
@@ -99,6 +99,12 @@ typedef enum
 
 
 
+typedef struct
+{
+  volatile u32  Counts;  //时间计数
+}timeCfg_t;
+
+
 
 typedef enum
 {
@@ -182,13 +188,17 @@ typedef enum
 
 typedef struct
 {
+
   volatile u8 Led_Switch_Flag;
   u8 Led_Blink_Flag;
   u8 Led_Blink_Flag_old;
   u8 Led_Blink_Count;
-  volatile u32 Led_Blink_Time;  
   volatile _LED_Status Led_Status;
+  timeCfg_t runTime;
 }_LED_Blink_Control;
+
+
+
 
 
 
@@ -214,7 +224,7 @@ typedef enum
 
 typedef struct
 {
-    u8 Ems_LineCheck;    ////  EMS 佩戴检测
+    bool ifEmsCheck;    ////  EMS 佩戴检测
 	u8 Ems_LineCheckOldMassageIng;   ///  EMS上一次状态保存：佩戴或不佩戴1 或 0：
     u8 Heat_time_interval;//
     u8 Strength;  //强度等级
@@ -350,7 +360,7 @@ extern volatile u8 softtime_Count_1ms;
 extern volatile _Motor_vibr_Control_type Motor_Vibr_Control;
 extern _LowPowerControl LowPowerControl;
 extern _key_delay_init key_delay_init;
-extern volatile _LED_Blink_Control Led_Blink_Controlold;
+extern volatile _LED_Blink_Control Led_Ctl;
 extern _Heater_Control Heater_Status_Data_Control;
 
 void SoftTimerCount(void);

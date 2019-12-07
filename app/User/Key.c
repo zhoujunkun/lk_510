@@ -92,9 +92,9 @@ void Gpio_IRQHandler(uint8_t u8Param)
 void KeyInit(void)
 {
    stc_gpio_config_t stcGpioCfg;
-   Sysctrl_SetPeripheralGate(SysctrlPeripheralGpio, TRUE);
+   Sysctrl_SetPeripheralGate(SysctrlPeripheralGpio, TRUE);  //打开外设时钟
    Sysctrl_SetFunc(SysctrlSWDUseIOEn,TRUE);
-   stcGpioCfg.enDir = GpioDirIn;
+   stcGpioCfg.enDir = GpioDirIn;  //输入
    stcGpioCfg.enDrv = GpioDrvH;
    stcGpioCfg.enPuPd = GpioPu;
    stcGpioCfg.enOD = GpioOdDisable;
@@ -353,11 +353,11 @@ void EMS_Port_Pin_Status(void)
 	  
 	    if(1==Ems_Status_Check.Ems_CkData)
 	    {
-	    	MassageHandler.Ems_LineCheck=TRUE;
+	    	MassageHandler.ifEmsCheck=TRUE;
 	    }
 	  else
 		{
-		   MassageHandler.Ems_LineCheck=FALSE;
+		   MassageHandler.ifEmsCheck=FALSE;
 		}
    	}
 }

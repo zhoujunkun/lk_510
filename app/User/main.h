@@ -1,7 +1,8 @@
 #ifndef __MAIN__HH__
 #define __MAIN__HH__
-#include "TypedefDef.h"
 
+#include "TypedefDef.h"
+#include "lk_board.h"
 #define PeripheralBatterySwPort GpioPortC 
 #define PeripheralBatterySwPin GpioPin15
 

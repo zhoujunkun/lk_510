@@ -224,7 +224,7 @@ static void MassagePwmIdleHandler(void);
 static void Ems_3DParaInit(void);
 static void Ems_2DParaInit(void);
 static void Ems_IDLEParaInit(void);
-#define Temp_Power_Adc 23000
+#define Temp_Power_Adc 19000
 #define Temp_Power_Adc_Zero 10000
 
 _PwmProcessDataHandler PwmProcessDataHandler;
@@ -700,7 +700,7 @@ void EMSControlHandler(void)
    	}
 }
 
-void EMS_PwmControl(void)
+void EMS_PwmControl(void) //中断调用
 {
     #if 0
      if(TRUE==PwmProcessDataHandler.SwitchOutDisable)
@@ -845,10 +845,10 @@ static void MassagePwmCHandler(void)
    static u8 DirPNAlterMoveCount=0;
    _PwmPulseData *GetpwmPulseArray;
 	 TimestampStop();
-   GetpwmPulseArray=MassageModeArray[MassageHandler.MassageMode-MassageAcupuncture].pwmPulseArray;
-   if(--PwmProcessDataHandler.repetCount==0)
+   GetpwmPulseArray=MassageModeArray[MassageHandler.MassageMode-MassageAcupuncture].pwmPulseArray;//获取按摩的数组配置参数起始地址
+   if(--PwmProcessDataHandler.repetCount==0) //重复次数
 	 {
-	   	   PwmProcessDataHandler.PwmArrIndex++;
+	   	   PwmProcessDataHandler.PwmArrIndex++; 
 		   if(PwmProcessDataHandler.PwmArrIndex>=PwmProcessDataHandler.PwmConfig_IndexMax)
 			{
 			    PwmProcessDataHandler.PwmArrIndex=0;

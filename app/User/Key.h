@@ -9,6 +9,12 @@
 #define KEY_MODE_INC 8
 
 
+
+#define LK_KEY_UP    (1<<1)
+#define LK_KEY_DOWN  (1<<2)
+#define LK_KEY_START (1<<3)
+
+
 #define EMS_Check_Port GpioPortA 
 #define EMS_Check_Pin GpioPin6
 

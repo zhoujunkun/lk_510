@@ -28,21 +28,21 @@ _PwmPulseType AcupunctureeMode_to_83Hz=
 {
    (35),
    ((SystemClkFreq)/(TimeFreqPSC*116)),
-   450,
+   250,
 };
 
 _PwmPulseType AcupunctureeMode_to_166Hz=
 {
    (35),
    ((SystemClkFreq)/(TimeFreqPSC*166)),
-   350,
+   150,
 };
 
 _PwmPulseType AcupunctureeMode_to_122Hz=
 {
    (35),
    ((SystemClkFreq)/(TimeFreqPSC*192)),
-   400,
+   200,
 };
 
 

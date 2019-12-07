@@ -62,7 +62,8 @@ u8 CompareParaSize(u32 CompTV1,u32 CompSV2,u32 diff)
    	  if((CompTV1-CompSV2)<=diff)
    	  	{
    	  	  return 1;
-   	  	}
+   	  	}
+
 	  return 0;
    	}
 
